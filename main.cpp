@@ -1,10 +1,13 @@
 #include <iostream>
 
 #include "src/filemanager.hpp"
+#include "src/fstest.hpp"
 
 int main() {
 
-    FileManager::open_file("1.txt");
+    FSTest::test();
+
+    FileManager::open_file("1.exe");
 
 
     system("pause");

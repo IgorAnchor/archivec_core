@@ -26,15 +26,17 @@ namespace FileManager {
             long long size = f_in.tellg();
             f_in.seekg(0, std::ios::beg);
 
-            const char * name = "copy.txt";
+            const char * name = "copy.exe";
 
             char *buff;
             std::vector<char> *bytes_to_write;
 
+            long long rest_size = size;
+
             if (size > CLUSTER) {
 
                 long long cluster_count = size / CLUSTER;
-                long long rest_size = size % CLUSTER;
+                rest_size = size % CLUSTER;
 
                 buff = new char[CLUSTER];
                 bytes_to_write = new std::vector<char>(CLUSTER);
@@ -50,22 +52,22 @@ namespace FileManager {
                     bytes_to_write->clear();
                 }
 
-                delete buff;
+                delete[] buff;
                 delete bytes_to_write;
             }
 
-            buff = new char[size];
-            bytes_to_write = new std::vector<char>(size);
+            buff = new char[rest_size];
+            bytes_to_write = new std::vector<char>(rest_size);
 
-            bytes_to_write->resize(size);
+            bytes_to_write->resize(rest_size);
 
-            f_in.read(buff, size);
-            bytes_to_write->assign(buff, buff + size);
+            f_in.read(buff, rest_size);
+            bytes_to_write->assign(buff, buff + rest_size);
 
             //do compressing
             write_file(bytes_to_write, name);
 
-            delete buff;
+            delete[] buff;
             delete bytes_to_write;
 
             f_in.close();
