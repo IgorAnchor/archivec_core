@@ -4,9 +4,10 @@
 
 int main() {
 
-    auto bytes = FileManager::open_file("1.txt");
+    FileManager::open_file("1.txt");
 
-    FileManager::write_file(bytes, "copy.txt");
+
+    system("pause");
 
     return EXIT_SUCCESS;
 }

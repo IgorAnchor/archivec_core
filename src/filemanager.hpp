@@ -9,14 +9,14 @@
 
 namespace FileManager {
 
+    static const long CLUSTER = 20'000'000;
+
     static void write_file(std::vector<char> *, const char *);
 
-    static std::vector<char> *open_file(const char *);
+    static void open_file(const char *);
 
 
-    static std::vector<char> *open_file(const char *path) {
-
-        std::vector<char> *buffer;
+    static void open_file(const char *path) {
 
         std::ifstream f_in(path, std::ios::in | std::ios::binary | std::ios::ate);
 
@@ -26,20 +26,49 @@ namespace FileManager {
             long long size = f_in.tellg();
             f_in.seekg(0, std::ios::beg);
 
-            buffer = new std::vector<char>(size);
-            buffer->assign(std::istreambuf_iterator<char>(f_in), std::istreambuf_iterator<char>());
+            const char * name = "copy.txt";
+
+            char *buff;
+            std::vector<char> *bytes_to_write;
+
+            if (size > CLUSTER) {
+
+                long long cluster_count = size / CLUSTER;
+                long long rest_size = size % CLUSTER;
+
+                buff = new char[CLUSTER];
+                bytes_to_write = new std::vector<char>(CLUSTER);
+
+                for (int i = 0; i < cluster_count; ++i) {
+
+                    f_in.read(buff, CLUSTER);
+                    bytes_to_write->assign(buff, buff + CLUSTER);
+
+                    //do compressing
+                    write_file(bytes_to_write, name);
+
+                    bytes_to_write->clear();
+                }
+
+                delete buff;
+                delete bytes_to_write;
+            }
+
+            buff = new char[size];
+            bytes_to_write = new std::vector<char>(size);
+
+            bytes_to_write->resize(size);
+
+            f_in.read(buff, size);
+            bytes_to_write->assign(buff, buff + size);
+
+            //do compressing
+            write_file(bytes_to_write, name);
+
+            delete buff;
+            delete bytes_to_write;
 
             f_in.close();
-
-//            for (auto &&byte :*buffer) {
-//                if (byte == '\n')
-//                    std::cout << std::endl;
-//                else
-//                    std::cout << byte;
-//            }
-
-            return buffer;
-
         } else {
             std::string err = "Unable to open file ";
             err.append(path);
@@ -49,7 +78,7 @@ namespace FileManager {
 
     static void write_file(std::vector<char> *bytes, const char *path) {
 
-        std::ofstream f_out(path, std::ios::binary);
+        std::ofstream f_out(path, std::ios::binary | std::ios::app);
 
         if (f_out.is_open()) {
 
@@ -59,7 +88,7 @@ namespace FileManager {
             f_out.close();
 
         } else {
-            std::string err = "Unable to open file ";
+            std::string err = "Unable to write file ";
             err.append(path);
             Message::error_message(err.c_str());
         }
