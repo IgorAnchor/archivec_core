@@ -7,7 +7,7 @@ int main() {
 
     FSTest::test();
 
-    FileManager::open_file("1.exe");
+    //FileManager::open_file("1.exe");
 
 
     system("pause");
