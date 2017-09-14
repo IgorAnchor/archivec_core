@@ -26,7 +26,7 @@ namespace FileManager {
             long long size = f_in.tellg();
             f_in.seekg(0, std::ios::beg);
 
-            const char * name = "copy.exe";
+            const char *name = "copy.exe";
 
             char *buff;
             std::vector<char> *bytes_to_write;
@@ -72,9 +72,7 @@ namespace FileManager {
 
             f_in.close();
         } else {
-            std::string err = "Unable to open file ";
-            err.append(path);
-            Message::error_message(err.c_str());
+            Message::message_box("Unable to open file", "Error", 1, &path);
         }
     }
 
@@ -90,9 +88,7 @@ namespace FileManager {
             f_out.close();
 
         } else {
-            std::string err = "Unable to write file ";
-            err.append(path);
-            Message::error_message(err.c_str());
+            Message::message_box("Unable to write file", "Error", 1, &path);
         }
     }
 

@@ -1,7 +1,9 @@
 #include "jnimain.hpp"
 #include "filemanager.hpp"
+#include "archiver.hpp"
 
 
 JNIEXPORT void JNICALL Java_Native_test(JNIEnv *env, jclass jc) {
-    FileManager::open_file("1.txt");
+    Archiver *archiver = new Archiver("test/");
+    archiver->crush("test.ar");
 }
