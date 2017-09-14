@@ -19,7 +19,8 @@ set(SOURCE_FILES
         src/fstest.hpp
         src/archiver.cpp
         src/archiver.hpp
-        src/util/archiveccore.hpp)
+        src/util/archiveccore.hpp
+        src/util/archiveccore.cpp)
 
 add_library(archivec_core SHARED ${SOURCE_FILES})
 target_link_libraries(archivec_core ${Boost_LIBRARIES})

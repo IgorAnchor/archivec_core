@@ -1,8 +1,10 @@
 #include "archiveccore.hpp"
+#include "message.hpp"
 
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_initNative
         (JNIEnv *env, jclass cl, jstring j_path) {
     const char *path = env->GetStringUTFChars(j_path, JNI_FALSE);
+    Message::message_box(path, "init");
     archiver->init(path);
     env->ReleaseStringUTFChars(j_path, path);
 }
