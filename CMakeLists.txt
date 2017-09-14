@@ -13,8 +13,6 @@ find_package(JNI REQUIRED)
 include_directories(${JNI_INCLUDE_DIRS} ${Boost_INCLUDE_DIR})
 
 set(SOURCE_FILES
-        src/jnimain.cpp
-        src/jnimain.hpp
         src/filemanager.hpp
         src/util/native.hpp
         src/util/message.hpp

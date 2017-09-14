@@ -24,11 +24,14 @@ private:
         uint32_t name_length;   //path+extension
     } __attribute__((__packed__));
 
-    std::list<fs::path> *files_;
+    std::vector<fs::path> *files_;
     std::vector<std::string> *titles_;
+
+    std::string root_dir;
 public:
     explicit Archiver();
-    explicit Archiver(const char* dir_name);
+
+    explicit Archiver(const char *dir_name);
 
     ~Archiver();
 
@@ -38,13 +41,16 @@ public:
 
     inline bool check_stamp(const Stamp &stamp);
 
-    inline uint32_t extract_files_count(const char *title);
+    uint32_t extract_files_count(const char *title);
 
     std::vector<std::string> extract_files_names(const char *title);
 
-    bool extract_file(const char *title, const uint32_t file_id);
+    bool extract_file(const char *title, const char *dest_path, const uint32_t file_id);
 
-    void extract(const char *title);
+    void extract(const char *title, const char *dest_path);
+
+private:
+    inline void mkdir(fs::path &path);
 };
 
 
