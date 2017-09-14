@@ -39,8 +39,6 @@ public:
 
     void crush(const char *out_file_name);
 
-    inline bool check_stamp(const Stamp &stamp);
-
     uint32_t extract_files_count(const char *title);
 
     std::vector<std::string> extract_files_names(const char *title);
@@ -51,6 +49,8 @@ public:
 
 private:
     inline void mkdir(fs::path &path);
+
+    inline bool check_stamp(const Stamp &stamp);
 };
 
 

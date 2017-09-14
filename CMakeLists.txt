@@ -18,10 +18,11 @@ set(SOURCE_FILES
         src/util/message.hpp
         src/fstest.hpp
         src/archiver.cpp
-        src/archiver.hpp)
+        src/archiver.hpp
+        src/util/archiveccore.hpp)
 
 add_library(archivec_core SHARED ${SOURCE_FILES})
 target_link_libraries(archivec_core ${Boost_LIBRARIES})
 
-add_executable(archivec main.cpp ${SOURCE_FILES})
+add_executable(archivec main.cpp ${SOURCE_FILES} src/util/archiveccore.cpp)
 target_link_libraries(archivec archivec_core)
