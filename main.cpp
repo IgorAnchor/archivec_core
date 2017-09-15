@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
     archiver->crush("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
 
 
-    uint32_t f_count = archiver->extract_files_count(
+    /*uint32_t f_count = archiver->extract_files_count(
             "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
     std::cout << "Count: " << f_count << std::endl;
 
@@ -26,6 +26,6 @@ int main(int argc, char *argv[]) {
             "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/2/123.exe", 1);
 
     archiver->extract("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar",
-                      "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/3/");
+                      "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/3/");*/
     return 0;
 }

@@ -11,6 +11,16 @@ extern "C" {
 
 Archiver *archiver = new Archiver();
 
+static jclass java_util_ArrayList;
+static jmethodID java_util_ArrayList_;
+jmethodID java_util_ArrayList_size;
+jmethodID java_util_ArrayList_get;
+jmethodID java_util_ArrayList_add;
+
+void init(JNIEnv *);
+
+jobject std_vec_to_array_list(JNIEnv *, std::vector<std::string> &);
+
 /*
  * Class:     ua_chillcrew_archivec_core_ArchivecCore
  * Method:    initNative
