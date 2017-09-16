@@ -4,7 +4,15 @@
 
 int main(int argc, char *argv[]) {
     Archiver *archiver = new Archiver("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/test/");
-    archiver->crush("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
+//    archiver->crush("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
+
+
+    std::vector<ArchivedFile> entries = archiver->extract_files_info("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
+
+    for (auto &&entry : entries) {
+        std::cout<< entry.size << "  " <<entry.name << "   " << entry.id  << std::endl;
+
+    }
 
 
     /*uint32_t f_count = archiver->extract_files_count(
@@ -12,7 +20,7 @@ int main(int argc, char *argv[]) {
     std::cout << "Count: " << f_count << std::endl;
 
 
-    std::vector<std::string> names = archiver->extract_files_names(
+    std::vector<std::string> names = archiver->extract_file_names(
             "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
 
     std::cout << "Contains:" << std::endl;

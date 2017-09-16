@@ -37,11 +37,11 @@ JNIEXPORT jint JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_getFilesCoun
 
 JNIEXPORT jobject JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_getFileNamesNative
         (JNIEnv *env, jclass cl, jstring j_path) {
-    const char *out_path = env->GetStringUTFChars(j_path, JNI_FALSE);
-    auto vec = archiver->extract_files_names(out_path);
+    /*const char *out_path = env->GetStringUTFChars(j_path, JNI_FALSE);
+    auto vec = archiver->extract_file_names(out_path);
     env->ReleaseStringUTFChars(j_path, out_path);
 
-    return std_vec_to_array_list(env, vec);
+    return std_vec_to_array_list(env, vec);*/
 }
 
 JNIEXPORT jboolean JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractFileNative

@@ -69,7 +69,7 @@ void Archiver::crush(const char *out_file_name) {
 
     for (auto i = 0; i < titles_->size(); ++i) {
         Entry entry;
-        entry.number = i + 1;
+        entry.id = i;
         entry.size = fs::file_size(files_->at(i));
         entry.name_length = titles_->at(i).length();
 
@@ -81,7 +81,7 @@ void Archiver::crush(const char *out_file_name) {
 
         //split file
 
-        //open file and read uint8_t s
+        //open file and read
         uint8_t *contents = new uint8_t[entry.size + 1];
         FILE *in = fopen(files_->at(i).string().c_str(), "rb");
 
@@ -104,73 +104,8 @@ void Archiver::crush(const char *out_file_name) {
 
 }
 
-bool Archiver::check_stamp(const Archiver::Stamp &stamp) {
+bool Archiver::check_stamp(const Stamp &stamp) {
     return stamp.x == 0x52 && stamp.y == 0x84 && stamp.z == 0x91;
-}
-
-uint32_t Archiver::extract_files_count(const char *title) {
-    FILE *in = fopen(title, "r");
-    if (in == nullptr) {
-        Message::message_box("Couldn't access file ", "Error", 1, &title);
-        exit(EXIT_FAILURE);
-    }
-
-    Stamp stamp;
-
-    memset(&stamp, 0, sizeof(Stamp));
-    fread(&stamp, sizeof(Stamp), 1, in);
-
-    if (!check_stamp(stamp)) {
-        Message::message_box("Unknown file format!", "Error");
-        exit(EXIT_FAILURE);
-    }
-
-    return stamp.files_count;
-}
-
-std::vector<std::string> Archiver::extract_files_names(const char *title) {
-    std::vector<std::string> names;
-    names.reserve(extract_files_count(title));
-
-    FILE *in = fopen(title, "rb");
-
-    if (in == nullptr) {
-        Message::message_box("Couldn't access file ", "Error", 1, &title);
-        exit(EXIT_FAILURE);
-    }
-
-    Stamp stamp;
-    memset(&stamp, 0, sizeof(Stamp));
-
-    fread(&stamp, sizeof(Stamp), 1, in);
-
-    if (!check_stamp(stamp)) {
-        Message::message_box("Unknown file format!", "Error");
-        exit(EXIT_FAILURE);
-    }
-
-    for (auto i = 0; i < stamp.files_count; i++) {
-        Entry entry;
-        memset(&entry, 0, sizeof(Entry));
-
-        fread(&entry, sizeof(Entry), 1, in);
-
-        uint8_t *title = new uint8_t[entry.name_length + 1];
-
-        for (auto j = 0; j < entry.name_length; j++) {
-            fread(title + j, sizeof(uint8_t), 1, in);
-        }
-        title[entry.name_length] = '\0';
-        std::string tmp = std::string(reinterpret_cast<const char *>(title));
-        names.push_back(tmp);
-
-        fseek(in, entry.size, SEEK_CUR);
-
-        delete[] title;
-    }
-
-    fclose(in);
-    return names;
 }
 
 bool Archiver::extract_file(const char *title, const char *dest_path, const uint32_t file_id) {
@@ -201,7 +136,7 @@ bool Archiver::extract_file(const char *title, const char *dest_path, const uint
 
         uint8_t *title = new uint8_t[entry.name_length + 1];
 
-        if (entry.number != file_id) {
+        if (entry.id != file_id) {
             fseek(in, entry.name_length + entry.size, SEEK_CUR);
             continue;
         }
@@ -308,6 +243,72 @@ void Archiver::extract(const char *title, const char *dest_path) {
     fclose(in);
 }
 
+std::vector<ArchivedFile> Archiver::extract_files_info(const char *title) {
+    std::vector<ArchivedFile> entries;
+
+    FILE *in = fopen(title, "rb");
+
+    if (in == nullptr) {
+        Message::message_box("Couldn't access file ", "Error", 1, &title);
+        exit(EXIT_FAILURE);
+    }
+
+    Stamp stamp;
+    memset(&stamp, 0, sizeof(Stamp));
+
+    fread(&stamp, sizeof(Stamp), 1, in);
+
+    if (!check_stamp(stamp)) {
+        Message::message_box("Unknown file format!", "Error");
+        exit(EXIT_FAILURE);
+    }
+
+
+    for (auto i = 0; i < stamp.files_count; i++) {
+        Entry entry;
+        memset(&entry, 0, sizeof(Entry));
+        fread(&entry, sizeof(Entry), 1, in);
+
+        uint8_t *name = new uint8_t[entry.name_length + 1];
+        fread(name, entry.name_length, 1, in);
+        name[entry.name_length] = '\0';
+
+        ArchivedFile file;
+        file.id = entry.id;
+        file.size = entry.size;
+        file.name = reinterpret_cast<char *>(name);
+
+        entries.push_back(file);
+
+        fseek(in, entry.size, SEEK_CUR);
+    }
+
+    fclose(in);
+    return entries;
+}
+
+
+uint32_t Archiver::extract_files_count(const char *title) {
+    FILE *in = fopen(title, "r");
+    if (in == nullptr) {
+        Message::message_box("Couldn't access file ", "Error", 1, &title);
+        exit(EXIT_FAILURE);
+    }
+
+    Stamp stamp;
+
+    memset(&stamp, 0, sizeof(Stamp));
+    fread(&stamp, sizeof(Stamp), 1, in);
+
+    if (!check_stamp(stamp)) {
+        Message::message_box("Unknown file format!", "Error");
+        exit(EXIT_FAILURE);
+    }
+
+    return stamp.files_count;
+}
+
+
 void Archiver::mkdir(fs::path &path) {
     //create directory
     if (path.branch_path() != "") {
@@ -318,4 +319,3 @@ void Archiver::mkdir(fs::path &path) {
         }
     }
 }
-
