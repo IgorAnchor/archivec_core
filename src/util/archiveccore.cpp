@@ -3,7 +3,7 @@
 
 void init(JNIEnv *env) {
     java_util_ArrayList = static_cast<jclass>(env->NewGlobalRef(env->FindClass("java/util/ArrayList")));
-    java_util_ArrayList_ = env->GetMethodID(java_util_ArrayList, "<init>", "(I)V");
+    java_util_ArrayList_ = env->GetMethodID(java_util_ArrayList, "<init_dir>", "(I)V");
     java_util_ArrayList_size = env->GetMethodID(java_util_ArrayList, "size", "()I");
     java_util_ArrayList_get = env->GetMethodID(java_util_ArrayList, "get", "(I)Ljava/lang/Object;");
     java_util_ArrayList_add = env->GetMethodID(java_util_ArrayList, "add", "(Ljava/lang/Object;)Z");
@@ -15,7 +15,7 @@ JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_initNative
     init(env);
 
     const char *path = env->GetStringUTFChars(j_path, JNI_FALSE);
-    archiver->init(path);
+    archiver->init_dir(path, path);
     env->ReleaseStringUTFChars(j_path, path);
 }
 

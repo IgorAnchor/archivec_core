@@ -32,8 +32,6 @@ class Archiver {
 private:
     std::vector<fs::path> *files_;
     std::vector<std::string> *titles_;
-
-    std::string root_dir;
 public:
     explicit Archiver();
 
@@ -41,9 +39,7 @@ public:
 
     ~Archiver();
 
-    void set_root_dir(std::string_view path);
-
-    void init(std::string_view dir_name);
+    void init_dir(std::string_view dir_name, std::string_view root_dir_name);
 
     void crush(std::string_view out_file_name);
 

@@ -8,8 +8,10 @@ int main(int argc, char *argv[]) {
     Archiver *archiver = new Archiver("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/test/");
 
     std::vector<std::string_view >s;
-    s.emplace_back("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/test/a.txt");
-    s.emplace_back("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/test/y.txt");
+    s.push_back("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/test/a.txt");
+    s.push_back("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/test/y.txt");
+    s.push_back("aye.txt");
+    s.push_back("test1");
 
     archiver->add_to_archive(s);
     archiver->crush("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");

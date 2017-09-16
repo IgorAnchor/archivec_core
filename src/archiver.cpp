@@ -2,19 +2,14 @@
 #include "util/message.hpp"
 
 Archiver::Archiver() {
-    set_root_dir("./");
-
     files_ = new std::vector<fs::path>();
     titles_ = new std::vector<std::string>();
 }
 
 Archiver::Archiver(std::string_view dir_name) {
-
-    set_root_dir(dir_name);
-
     files_ = new std::vector<fs::path>();
     titles_ = new std::vector<std::string>();
-    init(dir_name);
+    init_dir(dir_name, dir_name);
 }
 
 Archiver::~Archiver() {
@@ -22,7 +17,7 @@ Archiver::~Archiver() {
     delete titles_;
 }
 
-void Archiver::init(std::string_view dir_name) {
+void Archiver::init_dir(std::string_view dir_name, std::string_view root_dir_name) {
     fs::path dir(dir_name.data());
 
     if (!fs::exists(dir) || !fs::is_directory(dir)) {
@@ -35,7 +30,7 @@ void Archiver::init(std::string_view dir_name) {
 
     while (iter != end) {
         if (!fs::is_regular_file(iter->path())) {
-            init(iter->path().string().c_str());
+            init_dir(iter->path().string(), root_dir_name);
             ++iter;
             continue;
         }
@@ -44,7 +39,7 @@ void Archiver::init(std::string_view dir_name) {
 
         auto full_path = iter->path().string();
 
-        auto path_from_root = full_path.substr(root_dir.length(), full_path.length());
+        auto path_from_root = full_path.substr(root_dir_name.length(), full_path.length());
 
         titles_->push_back(path_from_root);
         ++iter;
@@ -97,7 +92,7 @@ void Archiver::crush(std::string_view out_file_name) {
             exit(EXIT_FAILURE);
         }
 
-        std::cout << "\t->" << titles_->at(i).c_str() << std::endl;
+        std::cout << "\t->" << titles_->at(i) << std::endl;
         for (auto j = 0; j < entry.size; j++) {
             fread(contents + j, sizeof(uint8_t), 1, in);
             fwrite(contents + j, sizeof(uint8_t), 1, out);
@@ -116,10 +111,20 @@ void Archiver::add_to_existing_archive(std::vector<std::string_view> &files, std
 }
 
 void Archiver::add_to_archive(std::vector<std::string_view> &files) {
-    for (auto &&file : files) {
-        fs::path path_to_file(file.data());
-        files_->push_back(path_to_file);
-        titles_->push_back(path_to_file.filename().string());
+    for (auto &&path : files) {
+        fs::path path_to_file(path.data());
+
+        if (fs::exists(path_to_file)) {
+            if (fs::is_regular_file(path_to_file)) {
+                files_->push_back(path_to_file);
+                titles_->push_back(path_to_file.filename().string());
+            } else {
+                init_dir(path, path_to_file.end()->string());
+            }
+        } else {
+            Message::message_box("File or directory is not exists ", "Warning", path.data());
+        }
+
     }
 }
 
@@ -342,8 +347,3 @@ void Archiver::mkdir(fs::path &path) {
         }
     }
 }
-
-void Archiver::set_root_dir(std::string_view path) {
-    root_dir = path;
-}
-
