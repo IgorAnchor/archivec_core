@@ -110,9 +110,16 @@ void Archiver::crush(std::string_view out_file_name) {
 
 }
 
-void Archiver::crush(std::vector<std::string_view> &files) {
-    for (auto &&file : files) {
 
+void Archiver::add_to_existing_archive(std::vector<std::string_view> &files, std::string_view existing_archive) {
+
+}
+
+void Archiver::add_to_archive(std::vector<std::string_view> &files) {
+    for (auto &&file : files) {
+        fs::path path_to_file(file.data());
+        files_->push_back(path_to_file);
+        titles_->push_back(path_to_file.filename().string());
     }
 }
 
@@ -163,7 +170,7 @@ bool Archiver::extract_file(std::string_view title, std::string_view dest_path, 
         std::cout << "\t->" << title << std::endl;
 
         //create dir
-        fs::path out_path( dest_path.data());
+        fs::path out_path(dest_path.data());
         mkdir(out_path);
 
         //split file
@@ -339,3 +346,4 @@ void Archiver::mkdir(fs::path &path) {
 void Archiver::set_root_dir(std::string_view path) {
     root_dir = path;
 }
+

@@ -47,7 +47,9 @@ public:
 
     void crush(std::string_view out_file_name);
 
-    void crush(std::vector<std::string_view> &files);
+    void add_to_archive(std::vector<std::string_view> &files);
+
+    void add_to_existing_archive(std::vector<std::string_view> &files, std::string_view existing_archive);
 
     void extract(std::string_view title, std::string_view dest_path);
 
