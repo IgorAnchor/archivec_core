@@ -16,15 +16,15 @@ struct Stamp {
 } __attribute__((__packed__));
 
 struct Entry {
-    uint32_t id;            //id
-    uint64_t size;          //file size
-    uint32_t name_length;   //path+extension
+    uint32_t id;
+    uint64_t size;
+    uint32_t name_length;
 } __attribute__((__packed__));
 
 struct ArchivedFile{
     uint32_t  id;
     uint64_t  size;
-    char* name;
+    uint8_t* name;
 } __attribute__((__packed__));
 
 class Archiver {
@@ -37,21 +37,25 @@ private:
 public:
     explicit Archiver();
 
-    explicit Archiver(const char *dir_name);
+    explicit Archiver(std::string_view dir_name);
 
     ~Archiver();
 
-    void init(const char *dir_name);
+    void set_root_dir(std::string_view path);
 
-    void crush(const char *out_file_name);
+    void init(std::string_view dir_name);
 
-    void extract(const char *title, const char *dest_path);
+    void crush(std::string_view out_file_name);
 
-    bool extract_file(const char *title, const char *dest_path, uint32_t file_id);
+    void crush(std::vector<std::string_view> &files);
 
-    std::vector<ArchivedFile> extract_files_info(const char *title);
+    void extract(std::string_view title, std::string_view dest_path);
 
-    uint32_t extract_files_count(const char *title);
+    bool extract_file(std::string_view title, std::string_view dest_path, uint32_t file_id);
+
+    std::vector<ArchivedFile> extract_files_info(std::string_view title);
+
+    uint32_t extract_files_count(std::string_view title);
 
 
 private:
