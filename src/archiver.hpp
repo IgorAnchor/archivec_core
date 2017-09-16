@@ -35,8 +35,6 @@ private:
 public:
     explicit Archiver();
 
-    explicit Archiver(std::string_view dir_name);
-
     ~Archiver();
 
     void init_dir(std::string_view dir_name, std::string_view root_dir_name);

@@ -22,6 +22,15 @@ namespace Message {
         std::cin.ignore();
 #endif
     }
+
+    static bool message_box_yes_no(std::string message, std::string title, std::string additional_message = "") {
+#ifdef __WIN32
+        int32_t result = MessageBox(nullptr, message.append(additional_message).c_str(), title.c_str(),
+                                    MB_ICONQUESTION | MB_YESNO);
+        return result == IDYES;
+#elif __linux__ || __APPLE__
+#endif
+    }
 }
 
 #endif //ARCHIVEC_CORE_MESSAGE_HPP

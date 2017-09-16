@@ -1,5 +1,5 @@
 #include "archiveccore.hpp"
-#include "message.hpp"
+#include "messagebox.hpp"
 
 void init(JNIEnv *env) {
     java_util_ArrayList = static_cast<jclass>(env->NewGlobalRef(env->FindClass("java/util/ArrayList")));

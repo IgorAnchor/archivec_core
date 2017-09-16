@@ -1,15 +1,9 @@
 #include "archiver.hpp"
-#include "util/message.hpp"
+#include "util/messagebox.hpp"
 
 Archiver::Archiver() {
     files_ = new std::vector<fs::path>();
     titles_ = new std::vector<std::string>();
-}
-
-Archiver::Archiver(std::string_view dir_name) {
-    files_ = new std::vector<fs::path>();
-    titles_ = new std::vector<std::string>();
-    init_dir(dir_name, dir_name);
 }
 
 Archiver::~Archiver() {
@@ -47,6 +41,11 @@ void Archiver::init_dir(std::string_view dir_name, std::string_view root_dir_nam
 }
 
 void Archiver::crush(std::string_view out_file_name) {
+
+    if (titles_->size() <= 0) {
+        Message::message_box("Nothing to archivate!", "Message");
+        return;
+    }
 
     fs::path out_path(out_file_name.data());
 
@@ -108,16 +107,19 @@ void Archiver::crush(std::string_view out_file_name) {
 
 void Archiver::add_to_existing_archive(std::vector<std::string_view> &file_paths, std::string_view existing_archive) {
 
+    FILE *out = fopen(existing_archive.data(), "rw+b");
+
     titles_->clear();
     files_->clear();
-
     add_to_archive(file_paths);
 
-    FILE *out = fopen(existing_archive.data(), "rwb+");
-
     if (out == nullptr) {
-        Message::message_box("Couldn't create file ", "Error", existing_archive.data());
-        exit(EXIT_FAILURE);
+        if (Message::message_box_yes_no("file does not exist, create it?\n", "Message", existing_archive.data())) {
+            crush(existing_archive);
+            return;
+        } else {
+            exit(EXIT_FAILURE);
+        }
     }
 
     //read stamp
@@ -156,7 +158,7 @@ void Archiver::add_to_existing_archive(std::vector<std::string_view> &file_paths
     }
 
     //write new files count
-    stamp.files_count += file_paths.size();
+    stamp.files_count += titles_->size();
     fseek(out, 0, SEEK_SET);
     fwrite(&stamp, sizeof(Stamp), 1, out);
 
