@@ -106,8 +106,61 @@ void Archiver::crush(std::string_view out_file_name) {
 }
 
 
-void Archiver::add_to_existing_archive(std::vector<std::string_view> &files, std::string_view existing_archive) {
+void Archiver::add_to_existing_archive(std::vector<std::string_view> &file_paths, std::string_view existing_archive) {
 
+    titles_->clear();
+    files_->clear();
+
+    add_to_archive(file_paths);
+
+    FILE *out = fopen(existing_archive.data(), "rwb+");
+
+    if (out == nullptr) {
+        Message::message_box("Couldn't create file ", "Error", existing_archive.data());
+        exit(EXIT_FAILURE);
+    }
+
+    //read stamp
+    Stamp stamp;
+    memset(&stamp, 0, sizeof(Stamp));
+    fread(&stamp, sizeof(Stamp), 1, out);
+
+    fseek(out, 0, SEEK_END);
+
+    for (int i = 0; i < titles_->size(); ++i) {
+        Entry entry;
+        entry.id = i;
+        entry.size = fs::file_size(files_->at(i));
+        entry.name_length = titles_->at(i).length();
+
+        fwrite(&entry, sizeof(Entry), 1, out);
+
+        fwrite(titles_->at(i).data(), titles_->at(i).length(), 1, out);
+
+        uint8_t *contents = new uint8_t[entry.size + 1];
+        FILE *in = fopen(files_->at(i).string().c_str(), "rb");
+
+        if (in == nullptr) {
+            Message::message_box("Couldn't access file ", "Error", titles_->at(i));
+            file_paths.pop_back();
+        }
+
+        std::cout << "\t->" << titles_->at(i) << std::endl;
+        for (auto j = 0; j < entry.size; j++) {
+            fread(contents + j, sizeof(uint8_t), 1, in);
+            fwrite(contents + j, sizeof(uint8_t), 1, out);
+        }
+
+        delete[] contents;
+        fclose(in);
+    }
+
+    //write new files count
+    stamp.files_count += file_paths.size();
+    fseek(out, 0, SEEK_SET);
+    fwrite(&stamp, sizeof(Stamp), 1, out);
+
+    fclose(out);
 }
 
 void Archiver::add_to_archive(std::vector<std::string_view> &files) {
