@@ -23,5 +23,5 @@ set(SOURCE_FILES
 add_library(archivec_core SHARED ${SOURCE_FILES})
 target_link_libraries(archivec_core ${Boost_LIBRARIES})
 
-add_executable(archivec main.cpp ${SOURCE_FILES} src/util/archiveccore.cpp)
+add_executable(archivec main.cpp ${SOURCE_FILES})
 target_link_libraries(archivec archivec_core)
