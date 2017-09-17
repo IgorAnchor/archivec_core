@@ -58,6 +58,8 @@ private:
     inline void mkdir(fs::path &path);
 
     inline bool check_stamp(const Stamp &stamp);
+
+    inline bool check_replace(fs::path &path);
 };
 
 

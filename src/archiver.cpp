@@ -52,6 +52,8 @@ void Archiver::crush(std::string_view out_file_name) {
     //create dir
     mkdir(out_path);
 
+    if (!check_replace(out_path)) return;
+
     FILE *out = fopen(out_file_name.data(), "wb");
 
     if (out == nullptr) {
@@ -213,18 +215,16 @@ bool Archiver::extract_file(std::string_view title, std::string_view dest_path, 
 
         fread(&entry, sizeof(Entry), 1, in);
 
-        uint8_t *title = new uint8_t[entry.name_length + 1];
-
         if (entry.id != file_id) {
             fseek(in, entry.name_length + entry.size, SEEK_CUR);
             continue;
         }
 
-        uint8_t *contents = new uint8_t[entry.size + 1];
+        std::cout << "Extracting: " << std::endl;
 
-        for (auto j = 0; j < entry.name_length; j++) {
-            fread(title + j, sizeof(uint8_t), 1, in);
-        }
+        //file title
+        uint8_t *title = new uint8_t[entry.name_length + 1];
+        fread(title, entry.name_length, 1, in);
         title[entry.name_length] = '\0';
 
         std::cout << "\t->" << title << std::endl;
@@ -233,22 +233,25 @@ bool Archiver::extract_file(std::string_view title, std::string_view dest_path, 
         fs::path out_path(dest_path.data());
         mkdir(out_path);
 
-        //split file
-        FILE *out = fopen(dest_path.data(), "wb");
-        if (out == nullptr) {
-            Message::message_box("Couldn't write extracted file!", "Error");
-            exit(EXIT_FAILURE);
-        }
+        if (check_replace(out_path)) {
 
-        for (auto j = 0; j < entry.size; j++) {
-            fread(contents + j, sizeof(uint8_t), 1, in);
-            fwrite(contents + j, sizeof(uint8_t), 1, out);
-        }
-        contents[entry.size] = '\0';
+            //split file
+            FILE *out = fopen(dest_path.data(), "wb");
+            if (out == nullptr) {
+                Message::message_box("Couldn't write extracted file!\n", "Error", out_path.filename().string());
+                exit(EXIT_FAILURE);
+            }
 
-        delete[] contents;
+            //file content
+            uint8_t *contents = new uint8_t[entry.size + 1];
+            fread(contents, entry.size, 1, in);
+            fwrite(contents, entry.size, 1, out);
+            contents[entry.size] = '\0';
+
+            delete[] contents;
+            fclose(out);
+        }
         delete[] title;
-        fclose(out);
         found = true;
         break;
     }
@@ -287,37 +290,37 @@ void Archiver::extract(std::string_view title, std::string_view dest_path) {
 
         fread(&entry, sizeof(Entry), 1, in);
 
+        //file title
         uint8_t *title = new uint8_t[entry.name_length + 1];
-        uint8_t *contents = new uint8_t[entry.size + 1];
-
-        for (auto j = 0; j < entry.name_length; j++) {
-            fread(title + j, sizeof(uint8_t), 1, in);
-        }
+        fread(title, entry.name_length, 1, in);
         title[entry.name_length] = '\0';
 
         std::cout << "\t->" << title << std::endl;
-
 
         fs::path path_to_file(dest_path.data());
         path_to_file.append(reinterpret_cast<const char *>(title));
 
         mkdir(path_to_file);
 
-        //split file
-        FILE *out = fopen(path_to_file.string().c_str(), "wb");
-        if (out == nullptr) {
-            Message::message_box("Couldn't write extracted file!", "Error");
-            exit(EXIT_FAILURE);
-        }
+        if (check_replace(path_to_file)) {
+            //split file
+            FILE *out = fopen(path_to_file.string().c_str(), "wb");
+            if (out == nullptr) {
+                Message::message_box("Couldn't write extracted file!", "Error");
+                exit(EXIT_FAILURE);
+            }
 
-        for (auto j = 0; j < entry.size; j++) {
-            fread(contents + j, sizeof(uint8_t), 1, in);
-            fwrite(contents + j, sizeof(uint8_t), 1, out);
-        }
-        contents[entry.size] = '\0';
+            //file content
+            uint8_t *contents = new uint8_t[entry.size + 1];
+            fread(contents, entry.size, 1, in);
+            fwrite(contents, entry.size, 1, out);
+            contents[entry.size] = '\0';
 
-        fclose(out);
-        delete[] contents;
+            fclose(out);
+            delete[] contents;
+        } else {
+            fseek(in, entry.size, SEEK_CUR);
+        }
         delete[] title;
     }
 
@@ -400,5 +403,16 @@ void Archiver::mkdir(fs::path &path) {
             Message::message_box("Couldn't create directory ", "Error", path.branch_path().string());
             exit(EXIT_FAILURE);
         }
+    }
+}
+
+bool Archiver::check_replace(fs::path &path) {
+    if (fs::exists(path) && fs::is_regular_file(path)) {
+        if (Message::message_box_yes_no("File is already exists! Replace it?\n", "Message",
+                                        path.filename().string())) {
+            fs::remove_all(path);
+            return true;
+        }
+        return false;
     }
 }
