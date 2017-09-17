@@ -82,28 +82,20 @@ void Archiver::crush(std::string_view out_file_name) {
         //write filename
         fwrite(titles_->at(i).c_str(), titles_->at(i).length(), 1, out);
 
-        //split file
-
-        //open file and read
-        uint8_t *contents = new uint8_t[entry.size + 1];
+        //open file
         FILE *in = fopen(files_->at(i).string().c_str(), "rb");
-
         if (in == nullptr) {
             Message::message_box("Couldn't access file ", "Error", titles_->at(i));
             exit(EXIT_FAILURE);
         }
 
         std::cout << "\t->" << titles_->at(i) << std::endl;
-        for (auto j = 0; j < entry.size; j++) {
-            fread(contents + j, sizeof(uint8_t), 1, in);
-            fwrite(contents + j, sizeof(uint8_t), 1, out);
-        }
 
-        delete[] contents;
+        rewrite_file(in, out, entry.size);
+
         fclose(in);
     }
     fclose(out);
-
 }
 
 
@@ -138,10 +130,9 @@ void Archiver::add_to_existing_archive(std::vector<std::string_view> &file_paths
         entry.name_length = titles_->at(i).length();
 
         fwrite(&entry, sizeof(Entry), 1, out);
-
         fwrite(titles_->at(i).data(), titles_->at(i).length(), 1, out);
 
-        uint8_t *contents = new uint8_t[entry.size + 1];
+
         FILE *in = fopen(files_->at(i).string().c_str(), "rb");
 
         if (in == nullptr) {
@@ -150,12 +141,9 @@ void Archiver::add_to_existing_archive(std::vector<std::string_view> &file_paths
         }
 
         std::cout << "\t->" << titles_->at(i) << std::endl;
-        for (auto j = 0; j < entry.size; j++) {
-            fread(contents + j, sizeof(uint8_t), 1, in);
-            fwrite(contents + j, sizeof(uint8_t), 1, out);
-        }
 
-        delete[] contents;
+        rewrite_file(in, out, entry.size);
+
         fclose(in);
     }
 
@@ -242,13 +230,8 @@ bool Archiver::extract_file(std::string_view title, std::string_view dest_path, 
                 exit(EXIT_FAILURE);
             }
 
-            //file content
-            uint8_t *contents = new uint8_t[entry.size + 1];
-            fread(contents, entry.size, 1, in);
-            fwrite(contents, entry.size, 1, out);
-            contents[entry.size] = '\0';
+            rewrite_file(in, out, entry.size);
 
-            delete[] contents;
             fclose(out);
         }
         delete[] title;
@@ -258,7 +241,7 @@ bool Archiver::extract_file(std::string_view title, std::string_view dest_path, 
 
     fclose(in);
 
-    return found ? found : false;
+    return found;
 }
 
 void Archiver::extract(std::string_view title, std::string_view dest_path) {
@@ -310,14 +293,9 @@ void Archiver::extract(std::string_view title, std::string_view dest_path) {
                 exit(EXIT_FAILURE);
             }
 
-            //file content
-            uint8_t *contents = new uint8_t[entry.size + 1];
-            fread(contents, entry.size, 1, in);
-            fwrite(contents, entry.size, 1, out);
-            contents[entry.size] = '\0';
+            rewrite_file(in, out, entry.size);
 
             fclose(out);
-            delete[] contents;
         } else {
             fseek(in, entry.size, SEEK_CUR);
         }
@@ -415,4 +393,29 @@ bool Archiver::check_replace(fs::path &path) {
         }
         return false;
     }
+    return true;
+}
+
+void Archiver::rewrite_file(FILE *in, FILE *out, uint64_t file_size) {
+    uint8_t *buffer;
+
+    uint64_t rest_size = file_size;
+
+    if (file_size > max_buffer_size) {
+        uint64_t clusters = file_size / max_buffer_size;
+        rest_size = file_size % max_buffer_size;
+
+        buffer = new uint8_t[max_buffer_size];
+        for (int i = 0; i < clusters; ++i) {
+            fread(buffer, max_buffer_size, 1, in);
+            fwrite(buffer, max_buffer_size, 1, out);
+
+        }
+        delete[] buffer;
+    }
+
+    buffer = new uint8_t[rest_size];
+    fread(buffer, rest_size, 1, in);
+    fwrite(buffer, rest_size, 1, out);
+    delete[] buffer;
 }

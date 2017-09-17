@@ -13,10 +13,8 @@ find_package(JNI REQUIRED)
 include_directories(${JNI_INCLUDE_DIRS} ${Boost_INCLUDE_DIR})
 
 set(SOURCE_FILES
-        src/filemanager.hpp
         src/util/native.hpp
         src/util/messagebox.hpp
-        src/fstest.hpp
         src/archiver.cpp
         src/archiver.hpp
         src/util/archiveccore.hpp

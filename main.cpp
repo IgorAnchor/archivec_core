@@ -12,15 +12,15 @@ int main(int argc, char *argv[]) {
     s.emplace_back("aye.txt");
     s.emplace_back("test");
     s.emplace_back("test1");
+//    s.emplace_back("1.exe");
 
-    archiver->add_to_archive(s);
-    archiver->crush("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
+//    archiver->add_to_archive(s);
+//    archiver->crush("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
 
 
-    std::vector<std::string_view> s1;
-    s1.emplace_back("test2/1.txt");
-    s1.emplace_back("test2/2.txt");
-
+//    std::vector<std::string_view> s1;
+//    s1.emplace_back("test2/1.txt");
+//    s1.emplace_back("test2/2.txt");
 //    archiver->add_to_existing_archive(s1, "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
 
 
@@ -32,9 +32,9 @@ int main(int argc, char *argv[]) {
 
     }*/
 
-    archiver->extract_file("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar",
-                           "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/2/123.exe",
-                           3);
+//    archiver->extract_file("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar",
+//                           "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/2/123.exe",
+//                           3);
 
     archiver->extract("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar",
                       "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/out/");

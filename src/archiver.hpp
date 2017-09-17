@@ -21,10 +21,10 @@ struct Entry {
     uint32_t name_length;
 } __attribute__((__packed__));
 
-struct ArchivedFile{
-    uint32_t  id;
-    uint64_t  size;
-    uint8_t* name;
+struct ArchivedFile {
+    uint32_t id;
+    uint64_t size;
+    uint8_t *name;
 } __attribute__((__packed__));
 
 class Archiver {
@@ -32,6 +32,8 @@ class Archiver {
 private:
     std::vector<fs::path> *files_;
     std::vector<std::string> *titles_;
+
+    uint32_t max_buffer_size = 20'000'000;
 public:
     explicit Archiver();
 
@@ -53,6 +55,9 @@ public:
 
     uint32_t extract_files_count(std::string_view title);
 
+    void set_buffer_size(const uint32_t new_size) {
+        max_buffer_size = new_size;
+    }
 
 private:
     inline void mkdir(fs::path &path);
@@ -60,6 +65,8 @@ private:
     inline bool check_stamp(const Stamp &stamp);
 
     inline bool check_replace(fs::path &path);
+
+    inline void rewrite_file(FILE* in, FILE*out, uint64_t file_size);
 };
 
 
