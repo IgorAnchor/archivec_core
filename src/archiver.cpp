@@ -61,15 +61,12 @@ void Archiver::crush(std::string_view out_file_name) {
         exit(EXIT_FAILURE);
     }
 
+    //write stamp
     Stamp stamp;
     stamp.files_count = files_->size();
-
-    //write stamp
     fwrite(&stamp, sizeof(stamp), 1, out);
 
-    //archiving
     std::cout << "Archiving: " << std::endl;
-
     for (auto i = 0; i < titles_->size(); ++i) {
         Entry entry;
         entry.id = i;
@@ -125,13 +122,12 @@ void Archiver::add_to_existing_archive(std::vector<std::string_view> &file_paths
 
     for (int i = 0; i < titles_->size(); ++i) {
         Entry entry;
-        entry.id = i;
+        entry.id = stamp.files_count + i;
         entry.size = fs::file_size(files_->at(i));
         entry.name_length = titles_->at(i).length();
 
         fwrite(&entry, sizeof(Entry), 1, out);
         fwrite(titles_->at(i).data(), titles_->at(i).length(), 1, out);
-
 
         FILE *in = fopen(files_->at(i).string().c_str(), "rb");
 
@@ -189,7 +185,6 @@ bool Archiver::extract_file(std::string_view title, std::string_view dest_path, 
 
     Stamp stamp;
     memset(&stamp, 0, sizeof(Stamp));
-
     fread(&stamp, sizeof(Stamp), 1, in);
 
     if (!check_stamp(stamp)) {
@@ -358,7 +353,6 @@ uint32_t Archiver::extract_files_count(std::string_view title) {
     }
 
     Stamp stamp;
-
     memset(&stamp, 0, sizeof(Stamp));
     fread(&stamp, sizeof(Stamp), 1, in);
 
@@ -370,6 +364,80 @@ uint32_t Archiver::extract_files_count(std::string_view title) {
     return stamp.files_count;
 }
 
+void Archiver::remove_from_archive(std::vector<uint32_t> file_ids, std::string_view archive_path) {
+    FILE *in = fopen(archive_path.data(), "rb");
+    if (in == nullptr) {
+        Message::message_box("Couldn't access file ", "Error", archive_path.data());
+        exit(EXIT_FAILURE);
+    }
+
+    Stamp stamp;
+    memset(&stamp, 0, sizeof(Stamp));
+    fread(&stamp, sizeof(Stamp), 1, in);
+
+    if (!check_stamp(stamp)) {
+        Message::message_box("Unknown file format!", "Error");
+        exit(EXIT_FAILURE);
+    }
+
+    fs::path temp_archive(archive_path.data());
+    temp_archive.replace_extension(".7dck___");
+
+    if (fs::exists(temp_archive) && fs::is_regular_file(temp_archive)) {
+        fs::remove_all(temp_archive);
+    }
+
+    FILE *out = fopen(temp_archive.string().c_str(), "wb");
+
+    if (out == nullptr) {
+        Message::message_box("Couldn't create temp file\n", "Error", temp_archive.filename().string());
+        exit(EXIT_FAILURE);
+    }
+
+    //stamp space
+    fseek(out, sizeof(Stamp), SEEK_SET);
+
+    bool found = false;
+    uint32_t removed_count = 0;
+
+    for (int i = 0; i < stamp.files_count; ++i) {
+        Entry entry;
+        memset(&entry, 0, sizeof(Entry));
+        fread(&entry, sizeof(Entry), 1, in);
+
+        for (int j = 0; j < file_ids.size(); ++j) {
+            if (entry.id == file_ids.at(j)) {
+                found = true;
+                removed_count++;
+                break;
+            }
+        }
+
+        if (found) {
+            found = false;
+            fseek(in, entry.name_length+entry.size, SEEK_CUR);
+            continue;
+        }
+
+        uint8_t *name_and_content = new uint8_t[entry.name_length+entry.size];
+        fread(name_and_content,entry.name_length+entry.size, 1, in);
+
+        fwrite(&entry, sizeof(Entry), 1, out);
+        fwrite(name_and_content, entry.name_length+entry.size, 1, out);
+
+        delete[] name_and_content;
+    }
+
+    fseek(out, 0, SEEK_SET);
+    stamp.files_count -= removed_count;
+    fwrite(&stamp, sizeof(Stamp), 1, out);
+
+    fclose(in);
+    fclose(out);
+
+    fs::remove_all(archive_path.data());
+    fs::rename(temp_archive, archive_path.data());
+}
 
 void Archiver::mkdir(fs::path &path) {
     //create directory
@@ -418,4 +486,8 @@ void Archiver::rewrite_file(FILE *in, FILE *out, uint64_t file_size) {
     fread(buffer, rest_size, 1, in);
     fwrite(buffer, rest_size, 1, out);
     delete[] buffer;
+}
+
+void Archiver::set_buffer_size(uint32_t new_size) {
+    max_buffer_size = new_size;
 }

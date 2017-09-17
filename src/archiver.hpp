@@ -55,9 +55,9 @@ public:
 
     uint32_t extract_files_count(std::string_view title);
 
-    void set_buffer_size(const uint32_t new_size) {
-        max_buffer_size = new_size;
-    }
+    void remove_from_archive(std::vector<uint32_t> file_ids, std::string_view archive_path);
+
+    void set_buffer_size(uint32_t new_size);
 
 private:
     inline void mkdir(fs::path &path);
@@ -66,7 +66,7 @@ private:
 
     inline bool check_replace(fs::path &path);
 
-    inline void rewrite_file(FILE* in, FILE*out, uint64_t file_size);
+    inline void rewrite_file(FILE *in, FILE *out, uint64_t file_size);
 };
 
 
