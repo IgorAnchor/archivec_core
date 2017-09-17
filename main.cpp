@@ -16,11 +16,12 @@ int main(int argc, char *argv[]) {
 
     archiver->add_to_archive(s);
     archiver->crush("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
-//
-//    std::vector<std::string_view> s1;
-//    s1.emplace_back("test2/1.txt");
-//    s1.emplace_back("test2/2.txt");
-//    archiver->add_to_existing_archive(s1, "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
+
+    std::vector<std::string_view> s1;
+    s1.emplace_back("test2/1.txt");
+    s1.emplace_back("test2/2.txt");
+    archiver->add_to_existing_archive(s1,
+                                      "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
 
 //    std::vector<uint32_t> id;
 //    id.emplace_back(3);
@@ -30,24 +31,30 @@ int main(int argc, char *argv[]) {
 //    archiver->remove_from_archive(id,
 //                                  "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
 
-//    std::vector<ArchivedFile> entries = archiver->extract_files_info(
-//            "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
-//
-//    for (auto &&entry : entries) {
-//        std::cout << entry.size << "  " << entry.name << "   " << entry.id << std::endl;
-//
-//    }
+    std::vector<ArchivedFile> entries = archiver->extract_files_info(
+            "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
 
-//    archiver->extract_file("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar",
-//                           "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/2/123.exe",
-//                           3);
+    for (auto &&entry : entries) {
+        std::cout << entry.size << "  " << entry.name << "   " << entry.id << std::endl;
+
+    }
+
+    std::vector<uint32_t> ids;
+    ids.emplace_back(0);
+    ids.emplace_back(10);
+    ids.emplace_back(5);
+
+    archiver->extract_files("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar",
+                            "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/out1/",
+                            ids);
+
 //
 //    archiver->extract("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar",
 //                      "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/out/");
 
 
 //    fs::remove_all("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/");
-    fs::remove_all("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/out/");
+//    fs::remove_all("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/out/");
 
     return 0;
 }

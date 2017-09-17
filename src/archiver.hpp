@@ -39,8 +39,6 @@ public:
 
     ~Archiver();
 
-    void init_dir(std::string_view dir_name, std::string_view root_dir_name);
-
     void crush(std::string_view out_file_name);
 
     void add_to_archive(std::vector<std::string_view> &files);
@@ -49,17 +47,19 @@ public:
 
     void extract(std::string_view title, std::string_view dest_path);
 
-    bool extract_file(std::string_view title, std::string_view dest_path, uint32_t file_id);
+    bool extract_files(std::string_view path_to_archive, std::string_view dest_path, std::vector<uint32_t> &file_ids);
 
     std::vector<ArchivedFile> extract_files_info(std::string_view title);
 
     uint32_t extract_files_count(std::string_view title);
 
-    void remove_from_archive(std::vector<uint32_t> file_ids, std::string_view archive_path);
+    void remove_from_archive(std::vector<uint32_t> &file_ids, std::string_view archive_path);
 
     void set_buffer_size(uint32_t new_size);
 
 private:
+    void init_dir(std::string_view dir_name, std::string_view root_dir_name);
+
     inline void mkdir(fs::path &path);
 
     inline bool check_stamp(const Stamp &stamp);

@@ -15,7 +15,7 @@ JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_initNative
     init(env);
 
     const char *path = env->GetStringUTFChars(j_path, JNI_FALSE);
-    archiver->init_dir(path, path);
+    //archiver->init_dir(path, path);
     env->ReleaseStringUTFChars(j_path, path);
 }
 
@@ -50,12 +50,12 @@ JNIEXPORT jboolean JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractF
     const char *dest_path = env->GetStringUTFChars(j_dest_path, JNI_FALSE);
     const auto id = (uint32_t) j_id;
 
-    bool extracted = archiver->extract_file(title, dest_path, id);
+    //bool extracted = archiver->extract_files(title, dest_path, id);
 
     env->ReleaseStringUTFChars(j_title, title);
     env->ReleaseStringUTFChars(j_dest_path, dest_path);
 
-    return (jboolean) extracted;
+    //return (jboolean) extracted;
 }
 
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractNative

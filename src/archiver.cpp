@@ -173,13 +173,12 @@ bool Archiver::check_stamp(const Stamp &stamp) {
     return stamp.x == 0x52 && stamp.y == 0x84 && stamp.z == 0x91;
 }
 
-bool Archiver::extract_file(std::string_view title, std::string_view dest_path, const uint32_t file_id) {
-    bool found = false;
-
-    FILE *in = fopen(title.data(), "rb");
+bool
+Archiver::extract_files(std::string_view path_to_archive, std::string_view dest_path, std::vector<uint32_t> &file_ids) {
+    FILE *in = fopen(path_to_archive.data(), "rb");
 
     if (in == nullptr) {
-        Message::message_box("Couldn't access file ", "Error", title.data());
+        Message::message_box("Couldn't access file ", "Error", path_to_archive.data());
         exit(EXIT_FAILURE);
     }
 
@@ -192,34 +191,46 @@ bool Archiver::extract_file(std::string_view title, std::string_view dest_path, 
         exit(EXIT_FAILURE);
     }
 
+    bool found = false;
+
+    uint32_t found_files = 0;
+
     for (auto i = 0; i < stamp.files_count; i++) {
         Entry entry;
         memset(&entry, 0, sizeof(Entry));
-
         fread(&entry, sizeof(Entry), 1, in);
 
-        if (entry.id != file_id) {
+        for (uint32_t file_id : file_ids) {
+            if (entry.id == file_id) {
+                found = true;
+                found_files++;
+                break;
+            }
+        }
+
+        if (!found) {
             fseek(in, entry.name_length + entry.size, SEEK_CUR);
             continue;
         }
+        found = false;
 
         std::cout << "Extracting: " << std::endl;
 
-        //file title
-        uint8_t *title = new uint8_t[entry.name_length + 1];
+        //file path_to_archive
+        uint8_t *title = new uint8_t[entry.name_length];
         fread(title, entry.name_length, 1, in);
-        title[entry.name_length] = '\0';
 
         std::cout << "\t->" << title << std::endl;
 
         //create dir
         fs::path out_path(dest_path.data());
+        out_path.append(reinterpret_cast<const char *>(title));
         mkdir(out_path);
 
         if (check_replace(out_path)) {
 
             //split file
-            FILE *out = fopen(dest_path.data(), "wb");
+            FILE *out = fopen(out_path.string().c_str(), "wb");
             if (out == nullptr) {
                 Message::message_box("Couldn't write extracted file!\n", "Error", out_path.filename().string());
                 exit(EXIT_FAILURE);
@@ -230,13 +241,13 @@ bool Archiver::extract_file(std::string_view title, std::string_view dest_path, 
             fclose(out);
         }
         delete[] title;
-        found = true;
-        break;
+
+        if (found_files == file_ids.size()) {
+            break;
+        }
     }
-
     fclose(in);
-
-    return found;
+    return found_files != 0;
 }
 
 void Archiver::extract(std::string_view title, std::string_view dest_path) {
@@ -364,7 +375,7 @@ uint32_t Archiver::extract_files_count(std::string_view title) {
     return stamp.files_count;
 }
 
-void Archiver::remove_from_archive(std::vector<uint32_t> file_ids, std::string_view archive_path) {
+void Archiver::remove_from_archive(std::vector<uint32_t> &file_ids, std::string_view archive_path) {
     FILE *in = fopen(archive_path.data(), "rb");
     if (in == nullptr) {
         Message::message_box("Couldn't access file ", "Error", archive_path.data());
@@ -405,8 +416,8 @@ void Archiver::remove_from_archive(std::vector<uint32_t> file_ids, std::string_v
         memset(&entry, 0, sizeof(Entry));
         fread(&entry, sizeof(Entry), 1, in);
 
-        for (int j = 0; j < file_ids.size(); ++j) {
-            if (entry.id == file_ids.at(j)) {
+        for (uint32_t file_id : file_ids) {
+            if (entry.id == file_id) {
                 found = true;
                 removed_count++;
                 break;
@@ -415,15 +426,15 @@ void Archiver::remove_from_archive(std::vector<uint32_t> file_ids, std::string_v
 
         if (found) {
             found = false;
-            fseek(in, entry.name_length+entry.size, SEEK_CUR);
+            fseek(in, entry.name_length + entry.size, SEEK_CUR);
             continue;
         }
 
-        uint8_t *name_and_content = new uint8_t[entry.name_length+entry.size];
-        fread(name_and_content,entry.name_length+entry.size, 1, in);
+        uint8_t *name_and_content = new uint8_t[entry.name_length + entry.size];
+        fread(name_and_content, entry.name_length + entry.size, 1, in);
 
         fwrite(&entry, sizeof(Entry), 1, out);
-        fwrite(name_and_content, entry.name_length+entry.size, 1, out);
+        fwrite(name_and_content, entry.name_length + entry.size, 1, out);
 
         delete[] name_and_content;
     }
