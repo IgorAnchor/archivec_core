@@ -220,7 +220,7 @@ Archiver::extract_files(std::string_view path_to_archive, std::string_view dest_
         uint8_t *title = new uint8_t[entry.name_length];
         fread(title, entry.name_length, 1, in);
 
-        std::cout << "\t->" << title << std::endl;
+        std::cout<<entry.name_length << "\t->" << title << std::endl;
 
         //create dir
         fs::path out_path(dest_path.data());
@@ -233,7 +233,11 @@ Archiver::extract_files(std::string_view path_to_archive, std::string_view dest_
             FILE *out = fopen(out_path.string().c_str(), "wb");
             if (out == nullptr) {
                 Message::message_box("Couldn't write extracted file!\n", "Error", out_path.filename().string());
-                exit(EXIT_FAILURE);
+
+                fseek(in, entry.size, SEEK_CUR);
+                fclose(out);
+                delete[] title;
+                continue;
             }
 
             rewrite_file(in, out, entry.size);

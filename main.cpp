@@ -38,14 +38,14 @@ int main(int argc, char *argv[]) {
 //        std::cout << entry.size << "  " << entry.name << "   " << entry.id << std::endl;
 //
 //    }
-//
+
 //    std::vector<uint32_t> ids;
 //    ids.emplace_back(0);
 //    ids.emplace_back(10);
 //    ids.emplace_back(5);
 //
 //    archiver->extract_files("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar",
-//                            "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/out1/",
+//                            "D:/",
 //                            ids);
 
 //
