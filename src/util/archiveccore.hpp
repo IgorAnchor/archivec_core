@@ -19,7 +19,10 @@ jmethodID java_util_ArrayList_add;
 
 void init(JNIEnv *);
 
-void array_list_to_vector(JNIEnv *, std::vector<uint32_t> &, jobject);
+
+void array_list_to_vector_uint32(JNIEnv *, std::vector<uint32_t> &, jobject);
+
+void array_list_to_vector_string_view(JNIEnv *, std::vector<std::string_view> &, jobject);
 
 
 /*
@@ -35,7 +38,7 @@ JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_initNative
  * Signature: (Ljava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_crushNative
-        (JNIEnv *, jclass, jstring);
+        (JNIEnv *, jclass, jstring, jboolean);
 
 /*
  * Class:     ua_chillcrew_archivec_core_ArchivecCore
@@ -100,6 +103,22 @@ JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_removeFromAr
  */
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_setBufferSizeNative
         (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     ua_chillcrew_archivec_core_ArchivecCore
+ * Method:    resetNative
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_resetNative
+        (JNIEnv *, jclass);
+
+/*
+ * Class:     ua_chillcrew_archivec_core_ArchivecCore
+ * Method:    getLastIdNative
+ * Signature: (Ljava/lang/String;)I
+ */
+JNIEXPORT jint JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_getLastIdNative
+        (JNIEnv *, jclass, jstring);
 
 #ifdef __cplusplus
 }

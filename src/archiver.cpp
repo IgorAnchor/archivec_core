@@ -40,7 +40,7 @@ void Archiver::init_dir(std::string_view dir_name, std::string_view root_dir_nam
     }
 }
 
-void Archiver::crush(std::string_view out_file_name) {
+void Archiver::crush(std::string_view out_file_name, bool ask_replace) {
 
     if (titles_->size() <= 0) {
         Message::message_box("Nothing to archivate!", "Message");
@@ -52,13 +52,15 @@ void Archiver::crush(std::string_view out_file_name) {
     //create dir
     mkdir(out_path);
 
-    if (!check_replace(out_path)) return;
+    if (!check_replace(out_path, ask_replace)) return;
 
     FILE *out = fopen(out_file_name.data(), "wb");
 
     if (out == nullptr) {
         Message::message_box("Couldn't create file ", "Error", out_file_name.data());
-        exit(EXIT_FAILURE);
+
+        fclose(out);
+        return;
     }
 
     //write stamp
@@ -83,7 +85,9 @@ void Archiver::crush(std::string_view out_file_name) {
         FILE *in = fopen(files_->at(i).string().c_str(), "rb");
         if (in == nullptr) {
             Message::message_box("Couldn't access file ", "Error", titles_->at(i));
-            exit(EXIT_FAILURE);
+
+            fclose(in);
+            continue;
         }
 
         std::cout << "\t->" << titles_->at(i) << std::endl;
@@ -98,6 +102,9 @@ void Archiver::crush(std::string_view out_file_name) {
 
 void Archiver::add_to_existing_archive(std::vector<std::string_view> &file_paths, std::string_view existing_archive) {
 
+    //id
+    uint32_t id = get_last_id(existing_archive) + 1;
+
     FILE *out = fopen(existing_archive.data(), "rw+b");
 
     titles_->clear();
@@ -109,7 +116,8 @@ void Archiver::add_to_existing_archive(std::vector<std::string_view> &file_paths
             crush(existing_archive);
             return;
         } else {
-            exit(EXIT_FAILURE);
+            fclose(out);
+            return;
         }
     }
 
@@ -120,9 +128,10 @@ void Archiver::add_to_existing_archive(std::vector<std::string_view> &file_paths
 
     fseek(out, 0, SEEK_END);
 
+
     for (int i = 0; i < titles_->size(); ++i) {
         Entry entry;
-        entry.id = stamp.files_count + i;
+        entry.id = id + i;
         entry.size = fs::file_size(files_->at(i));
         entry.name_length = titles_->at(i).length();
 
@@ -134,6 +143,7 @@ void Archiver::add_to_existing_archive(std::vector<std::string_view> &file_paths
         if (in == nullptr) {
             Message::message_box("Couldn't access file ", "Error", titles_->at(i));
             file_paths.pop_back();
+            continue;
         }
 
         std::cout << "\t->" << titles_->at(i) << std::endl;
@@ -192,9 +202,9 @@ Archiver::extract_files(std::string_view path_to_archive, std::string_view dest_
     }
 
     bool found = false;
-
     uint32_t found_files = 0;
 
+    std::cout << "Extracting: " << std::endl;
     for (auto i = 0; i < stamp.files_count; i++) {
         Entry entry;
         memset(&entry, 0, sizeof(Entry));
@@ -214,13 +224,12 @@ Archiver::extract_files(std::string_view path_to_archive, std::string_view dest_
         }
         found = false;
 
-        std::cout << "Extracting: " << std::endl;
-
         //file path_to_archive
-        uint8_t *title = new uint8_t[entry.name_length];
+        uint8_t *title = new uint8_t[entry.name_length + 1];
         fread(title, entry.name_length, 1, in);
+        title[entry.name_length] = '\0';
 
-        std::cout<<entry.name_length << "\t->" << title << std::endl;
+        std::cout << "\t->" << title << std::endl;
 
         //create dir
         fs::path out_path(dest_path.data());
@@ -300,7 +309,11 @@ void Archiver::extract(std::string_view title, std::string_view dest_path) {
             FILE *out = fopen(path_to_file.string().c_str(), "wb");
             if (out == nullptr) {
                 Message::message_box("Couldn't write extracted file!", "Error");
-                exit(EXIT_FAILURE);
+
+                fclose(out);
+                fseek(in, entry.size, SEEK_CUR);
+                delete[] title;
+                continue;
             }
 
             rewrite_file(in, out, entry.size);
@@ -392,7 +405,9 @@ void Archiver::remove_from_archive(std::vector<uint32_t> &file_ids, std::string_
 
     if (!check_stamp(stamp)) {
         Message::message_box("Unknown file format!", "Error");
-        exit(EXIT_FAILURE);
+
+        fclose(in);
+        return;
     }
 
     fs::path temp_archive(archive_path.data());
@@ -406,7 +421,9 @@ void Archiver::remove_from_archive(std::vector<uint32_t> &file_ids, std::string_
 
     if (out == nullptr) {
         Message::message_box("Couldn't create temp file\n", "Error", temp_archive.filename().string());
-        exit(EXIT_FAILURE);
+
+        fclose(out);
+        return;
     }
 
     //stamp space
@@ -415,6 +432,7 @@ void Archiver::remove_from_archive(std::vector<uint32_t> &file_ids, std::string_
     bool found = false;
     uint32_t removed_count = 0;
 
+    std::cout << "Removing..." << std::endl;
     for (int i = 0; i < stamp.files_count; ++i) {
         Entry entry;
         memset(&entry, 0, sizeof(Entry));
@@ -454,6 +472,14 @@ void Archiver::remove_from_archive(std::vector<uint32_t> &file_ids, std::string_
     fs::rename(temp_archive, archive_path.data());
 }
 
+
+uint32_t Archiver::get_last_id(std::string_view path_to_archive) {
+
+    auto files = extract_files_info(path_to_archive);
+
+    return files[files.size() - 1].id;
+}
+
 void Archiver::mkdir(fs::path &path) {
     //create directory
     if (path.branch_path() != "") {
@@ -467,14 +493,19 @@ void Archiver::mkdir(fs::path &path) {
     }
 }
 
-bool Archiver::check_replace(fs::path &path) {
+bool Archiver::check_replace(fs::path &path, bool ask_replace) {
     if (fs::exists(path) && fs::is_regular_file(path)) {
-        if (Message::message_box_yes_no("File is already exists! Replace it?\n", "Message",
-                                        path.filename().string())) {
+        if (ask_replace) {
+            if (Message::message_box_yes_no("File is already exists! Replace it?\n", "Message",
+                                            path.filename().string())) {
+                fs::remove_all(path);
+                return true;
+            }
+            return false;
+        } else {
             fs::remove_all(path);
             return true;
         }
-        return false;
     }
     return true;
 }
@@ -505,4 +536,9 @@ void Archiver::rewrite_file(FILE *in, FILE *out, uint64_t file_size) {
 
 void Archiver::set_buffer_size(uint32_t new_size) {
     max_buffer_size = new_size;
+}
+
+void Archiver::reset() {
+    titles_->clear();
+    files_->clear();
 }

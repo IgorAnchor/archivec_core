@@ -39,7 +39,7 @@ public:
 
     ~Archiver();
 
-    void crush(std::string_view out_file_name);
+    void crush(std::string_view out_file_name, bool ask_replace = true);
 
     void add_to_archive(std::vector<std::string_view> &files);
 
@@ -57,6 +57,10 @@ public:
 
     void set_buffer_size(uint32_t new_size);
 
+    void reset();
+
+    uint32_t get_last_id(std::string_view path_to_archive);
+
 private:
     void init_dir(std::string_view dir_name, std::string_view root_dir_name);
 
@@ -64,7 +68,7 @@ private:
 
     inline bool check_stamp(const Stamp &stamp);
 
-    inline bool check_replace(fs::path &path);
+    inline bool check_replace(fs::path &path, bool ask_replace = true);
 
     inline void rewrite_file(FILE *in, FILE *out, uint64_t file_size);
 };
