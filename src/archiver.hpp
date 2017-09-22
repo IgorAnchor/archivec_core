@@ -51,8 +51,6 @@ public:
 
     std::vector<ArchivedFile> extract_files_info(std::string_view title);
 
-    uint32_t extract_files_count(std::string_view title);
-
     void remove_from_archive(std::vector<uint32_t> &file_ids, std::string_view archive_path);
 
     void set_buffer_size(uint32_t new_size);

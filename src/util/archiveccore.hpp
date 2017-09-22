@@ -82,14 +82,6 @@ JNIEXPORT jobject JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractFi
 
 /*
  * Class:     ua_chillcrew_archivec_core_ArchivecCore
- * Method:    extractFilesCountNative
- * Signature: (Ljava/lang/String;)I
- */
-JNIEXPORT jint JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractFilesCountNative
-        (JNIEnv *, jclass, jstring);
-
-/*
- * Class:     ua_chillcrew_archivec_core_ArchivecCore
  * Method:    removeFromArchiveNative
  * Signature: (Ljava/util/ArrayList;Ljava/lang/String;)V
  */

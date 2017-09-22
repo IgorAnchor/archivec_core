@@ -1,3 +1,4 @@
+#include <sstream>
 #include "archiver.hpp"
 #include "util/messagebox.hpp"
 
@@ -16,7 +17,7 @@ void Archiver::init_dir(std::string_view dir_name, std::string_view root_dir_nam
 
     if (!fs::exists(dir) || !fs::is_directory(dir)) {
         Message::message_box("Is not a directory ", "Error", dir_name.data());
-        exit(EXIT_FAILURE);
+        return;
     }
 
     auto iter = fs::directory_iterator(dir);
@@ -32,7 +33,6 @@ void Archiver::init_dir(std::string_view dir_name, std::string_view root_dir_nam
         files_->push_back(iter->path());
 
         auto full_path = iter->path().string();
-
         auto path_from_root = full_path.substr(root_dir_name.length(), full_path.length());
 
         titles_->push_back(path_from_root);
@@ -162,18 +162,18 @@ void Archiver::add_to_existing_archive(std::vector<std::string_view> &file_paths
 }
 
 void Archiver::add_to_archive(std::vector<std::string_view> &files) {
-    for (auto &&path : files) {
-        fs::path path_to_file(path.data());
+    for (auto &&file : files) {
+        fs::path path_to_file(file.data());
 
         if (fs::exists(path_to_file)) {
             if (fs::is_regular_file(path_to_file)) {
                 files_->push_back(path_to_file);
                 titles_->push_back(path_to_file.filename().string());
             } else {
-                init_dir(path, path_to_file.end()->string());
+                init_dir(file, path_to_file.parent_path().string() + "/");
             }
         } else {
-            Message::message_box("File or directory is not exists ", "Warning", path.data());
+            Message::message_box("File or directory is not exists ", "Warning", file.data());
         }
 
     }
@@ -370,26 +370,6 @@ std::vector<ArchivedFile> Archiver::extract_files_info(std::string_view title) {
 
     fclose(in);
     return entries;
-}
-
-
-uint32_t Archiver::extract_files_count(std::string_view title) {
-    FILE *in = fopen(title.data(), "r");
-    if (in == nullptr) {
-        Message::message_box("Couldn't access file ", "Error", title.data());
-        exit(EXIT_FAILURE);
-    }
-
-    Stamp stamp;
-    memset(&stamp, 0, sizeof(Stamp));
-    fread(&stamp, sizeof(Stamp), 1, in);
-
-    if (!check_stamp(stamp)) {
-        Message::message_box("Unknown file format!", "Error");
-        exit(EXIT_FAILURE);
-    }
-
-    return stamp.files_count;
 }
 
 void Archiver::remove_from_archive(std::vector<uint32_t> &file_ids, std::string_view archive_path) {
