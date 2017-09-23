@@ -45,9 +45,9 @@ public:
 
     void add_to_existing_archive(std::vector<std::string_view> &file_paths, std::string_view existing_archive);
 
-    void extract(std::string_view title, std::string_view dest_path);
+    void extract(std::string_view title, std::string_view dest_path, bool ask_replace = true );
 
-    bool extract_files(std::string_view path_to_archive, std::string_view dest_path, std::vector<uint32_t> &file_ids);
+    bool extract_files(std::string_view path_to_archive, std::string_view dest_path, std::vector<uint32_t> &file_ids, bool ask_replace = true);
 
     std::vector<ArchivedFile> extract_files_info(std::string_view title);
 

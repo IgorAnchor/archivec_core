@@ -95,7 +95,7 @@ JNIEXPORT jobject JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractFi
 }
 
 JNIEXPORT jboolean JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractFilesNative
-        (JNIEnv *env, jclass jcs, jstring j_path_to_archive, jstring j_dest_path, jobject j_ids) {
+        (JNIEnv *env, jclass jcs, jstring j_path_to_archive, jstring j_dest_path, jobject j_ids, jboolean j_ask_replace) {
 
     const char *path_to_archive = env->GetStringUTFChars(j_path_to_archive, JNI_FALSE);
     const char *dest_path = env->GetStringUTFChars(j_dest_path, JNI_FALSE);
@@ -103,7 +103,7 @@ JNIEXPORT jboolean JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractF
     std::vector<uint32_t> ids;
     array_list_to_vector_uint32(env, ids, j_ids);
 
-    bool extracted = archiver->extract_files(path_to_archive, dest_path, ids);
+    bool extracted = archiver->extract_files(path_to_archive, dest_path, ids, (bool)j_ask_replace);
 
     env->ReleaseStringUTFChars(j_path_to_archive, path_to_archive);
     env->ReleaseStringUTFChars(j_dest_path, dest_path);
@@ -112,11 +112,11 @@ JNIEXPORT jboolean JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractF
 }
 
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractNative
-        (JNIEnv *env, jclass jcs, jstring j_path_to_archive, jstring j_dest_path) {
+        (JNIEnv *env, jclass jcs, jstring j_path_to_archive, jstring j_dest_path, jboolean j_ask_replace) {
     const char *path_to_archive = env->GetStringUTFChars(j_path_to_archive, JNI_FALSE);
     const char *dest_path = env->GetStringUTFChars(j_dest_path, JNI_FALSE);
 
-    archiver->extract(path_to_archive, dest_path);
+    archiver->extract(path_to_archive, dest_path, (bool)j_ask_replace);
 
     env->ReleaseStringUTFChars(j_path_to_archive, path_to_archive);
     env->ReleaseStringUTFChars(j_dest_path, dest_path);

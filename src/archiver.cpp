@@ -42,7 +42,7 @@ void Archiver::init_dir(std::string_view dir_name, std::string_view root_dir_nam
 
 void Archiver::crush(std::string_view out_file_name, bool ask_replace) {
 
-    if (titles_->size() <= 0) {
+    if (titles_->empty()) {
         Message::message_box("Nothing to archivate!", "Message");
         return;
     }
@@ -184,7 +184,7 @@ bool Archiver::check_stamp(const Stamp &stamp) {
 }
 
 bool
-Archiver::extract_files(std::string_view path_to_archive, std::string_view dest_path, std::vector<uint32_t> &file_ids) {
+Archiver::extract_files(std::string_view path_to_archive, std::string_view dest_path, std::vector<uint32_t> &file_ids, bool ask_replace) {
     FILE *in = fopen(path_to_archive.data(), "rb");
 
     if (in == nullptr) {
@@ -236,7 +236,7 @@ Archiver::extract_files(std::string_view path_to_archive, std::string_view dest_
         out_path.append(reinterpret_cast<const char *>(title));
         mkdir(out_path);
 
-        if (check_replace(out_path)) {
+        if (check_replace(out_path, ask_replace)) {
 
             //split file
             FILE *out = fopen(out_path.string().c_str(), "wb");
@@ -263,7 +263,7 @@ Archiver::extract_files(std::string_view path_to_archive, std::string_view dest_
     return found_files != 0;
 }
 
-void Archiver::extract(std::string_view title, std::string_view dest_path) {
+void Archiver::extract(std::string_view title, std::string_view dest_path, bool ask_replace) {
 
     FILE *in = fopen(title.data(), "rb");
 
@@ -304,7 +304,7 @@ void Archiver::extract(std::string_view title, std::string_view dest_path) {
 
         mkdir(path_to_file);
 
-        if (check_replace(path_to_file)) {
+        if (check_replace(path_to_file, ask_replace)) {
             //split file
             FILE *out = fopen(path_to_file.string().c_str(), "wb");
             if (out == nullptr) {

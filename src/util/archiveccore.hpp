@@ -25,90 +25,37 @@ void array_list_to_vector_uint32(JNIEnv *, std::vector<uint32_t> &, jobject);
 void array_list_to_vector_string_view(JNIEnv *, std::vector<std::string_view> &, jobject);
 
 
-/*
- * Class:     ua_chillcrew_archivec_core_ArchivecCore
- * Method:    initNative
- * Signature: ()V
- */
+
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_initNative
         (JNIEnv *, jclass);
-/*
- * Class:     ua_chillcrew_archivec_core_ArchivecCore
- * Method:    crushNative
- * Signature: (Ljava/lang/String;)V
- */
+
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_crushNative
         (JNIEnv *, jclass, jstring, jboolean);
 
-/*
- * Class:     ua_chillcrew_archivec_core_ArchivecCore
- * Method:    addToArchiveNative
- * Signature: (Ljava/util/ArrayList;)V
- */
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_addToArchiveNative
         (JNIEnv *, jclass, jobject);
 
-/*
- * Class:     ua_chillcrew_archivec_core_ArchivecCore
- * Method:    addToExistingAtchiveNative
- * Signature: (Ljava/util/ArrayList;Ljava/lang/String;)V
- */
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_addToExistingAtchiveNative
         (JNIEnv *, jclass, jobject, jstring);
 
-/*
- * Class:     ua_chillcrew_archivec_core_ArchivecCore
- * Method:    extractNative
- * Signature: (Ljava/lang/String;Ljava/lang/String;)V
- */
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractNative
-        (JNIEnv *, jclass, jstring, jstring);
+        (JNIEnv *, jclass, jstring, jstring, jboolean);
 
-/*
- * Class:     ua_chillcrew_archivec_core_ArchivecCore
- * Method:    extractFilesNative
- * Signature: (Ljava/lang/String;Ljava/lang/String;Ljava/util/ArrayList;)Z
- */
 JNIEXPORT jboolean JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractFilesNative
-        (JNIEnv *, jclass, jstring, jstring, jobject);
+        (JNIEnv *, jclass, jstring, jstring, jobject, jboolean);
 
-/*
- * Class:     ua_chillcrew_archivec_core_ArchivecCore
- * Method:    extractFilesInfoNative
- * Signature: (Ljava/lang/String;)Ljava/util/ArrayList;
- */
 JNIEXPORT jobject JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractFilesInfoNative
         (JNIEnv *, jclass, jstring);
 
-/*
- * Class:     ua_chillcrew_archivec_core_ArchivecCore
- * Method:    removeFromArchiveNative
- * Signature: (Ljava/util/ArrayList;Ljava/lang/String;)V
- */
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_removeFromArchiveNative
         (JNIEnv *, jclass, jobject, jstring);
 
-/*
- * Class:     ua_chillcrew_archivec_core_ArchivecCore
- * Method:    setBufferSizeNative
- * Signature: (I)V
- */
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_setBufferSizeNative
         (JNIEnv *, jclass, jint);
 
-/*
- * Class:     ua_chillcrew_archivec_core_ArchivecCore
- * Method:    resetNative
- * Signature: ()V
- */
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_resetNative
         (JNIEnv *, jclass);
 
-/*
- * Class:     ua_chillcrew_archivec_core_ArchivecCore
- * Method:    getLastIdNative
- * Signature: (Ljava/lang/String;)I
- */
 JNIEXPORT jint JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_getLastIdNative
         (JNIEnv *, jclass, jstring);
 
