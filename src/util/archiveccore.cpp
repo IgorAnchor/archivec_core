@@ -1,4 +1,3 @@
-#include <iostream>
 #include <sstream>
 #include "archiveccore.hpp"
 
@@ -8,8 +7,6 @@ void init(JNIEnv *env) {
     java_util_ArrayList_size = env->GetMethodID(java_util_ArrayList, "size", "()I");
     java_util_ArrayList_get = env->GetMethodID(java_util_ArrayList, "get", "(I)Ljava/lang/Object;");
     java_util_ArrayList_add = env->GetMethodID(java_util_ArrayList, "add", "(Ljava/lang/Object;)Z");
-
-//ua.chillcrew.archivec.core
 }
 
 
@@ -23,7 +20,7 @@ void array_list_to_vector_uint32(JNIEnv *env, std::vector<uint32_t> &ids, jobjec
     for (jint i = 0; i < array_list_size; ++i) {
         jobject j_integer = env->CallObjectMethod(array_list, java_util_ArrayList_get, i);
 
-        uint32_t id = static_cast<uint32_t>(env->CallIntMethod(j_integer, getVal));
+        auto id = static_cast<uint32_t>(env->CallIntMethod(j_integer, getVal));
 
         ids.push_back(id);
         env->DeleteLocalRef(j_integer);
@@ -34,7 +31,7 @@ void array_list_to_vector_string_view(JNIEnv *env, std::vector<std::string_view>
 
     jint array_list_size = env->CallIntMethod(array_list, java_util_ArrayList_size);
     for (jint i = 0; i < array_list_size; ++i) {
-        jstring j_path = static_cast<jstring>(env->CallObjectMethod(array_list, java_util_ArrayList_get, i));
+        auto j_path = static_cast<jstring>(env->CallObjectMethod(array_list, java_util_ArrayList_get, i));
 
         const char *path = env->GetStringUTFChars(j_path, nullptr);
 
@@ -61,7 +58,7 @@ JNIEXPORT jint JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_getLastIdNat
         (JNIEnv *env, jclass jcs, jstring j_path_to_archive) {
     const char *path_to_archive = env->GetStringUTFChars(j_path_to_archive, JNI_FALSE);
 
-    jint last_id = static_cast<jint>(archiver->get_last_id(path_to_archive));
+    auto last_id = static_cast<jint>(archiver->get_last_id(path_to_archive));
 
     env->ReleaseStringUTFChars(j_path_to_archive, path_to_archive);
 
@@ -82,6 +79,7 @@ JNIEXPORT jobject JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractFi
         temp << file.id << "|";
         temp << reinterpret_cast<const char *>(file.name) << "|";
         temp << file.size;
+        temp << file.compressed_size;
 
         jstring file_info = env->NewStringUTF(temp.str().c_str());
 

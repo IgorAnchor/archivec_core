@@ -1,7 +1,3 @@
-//
-// Created by IgorTheMLGPro on 9/13/2017.
-//
-
 #ifndef ARCHIVEC_CORE_MESSAGE_HPP
 #define ARCHIVEC_CORE_MESSAGE_HPP
 

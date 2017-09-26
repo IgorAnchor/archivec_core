@@ -3,8 +3,9 @@
 
 #include <string>
 #include <list>
-
 #include <boost/filesystem.hpp>
+
+#include "util/compressors/lzw/lzw.hpp"
 
 namespace fs = boost::filesystem;
 
@@ -18,12 +19,14 @@ struct Stamp {
 struct Entry {
     uint32_t id;
     uint64_t size;
+    uint64_t compressed_size;
     uint32_t name_length;
 } __attribute__((__packed__));
 
 struct ArchivedFile {
     uint32_t id;
     uint64_t size;
+    uint64_t compressed_size;
     uint8_t *name;
 } __attribute__((__packed__));
 
@@ -33,7 +36,7 @@ private:
     std::vector<fs::path> *files_;
     std::vector<std::string> *titles_;
 
-    uint32_t max_buffer_size = 20'000'000;
+    uint32_t max_buffer_size = 2'000'000;
 public:
     explicit Archiver();
 
@@ -68,7 +71,9 @@ private:
 
     inline bool check_replace(fs::path &path, bool ask_replace = true);
 
-    inline void rewrite_file(FILE *in, FILE *out, uint64_t file_size);
+    inline void rewrite_file_compress(FILE *in, FILE *out, uint64_t *file_size, uint64_t *compressed_size);
+
+    inline void rewrite_file_expand(FILE *in, FILE *out, const uint64_t *compressed_size, const uint64_t *file_size);
 };
 
 

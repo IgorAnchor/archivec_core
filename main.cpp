@@ -1,53 +1,48 @@
 #include <iostream>
+#include <ctime>
 
 #include "src/archiver.hpp"
 
 int main(int argc, char *argv[]) {
 
     Archiver *archiver = new Archiver();
-//
-    std::vector<std::string_view> s;
-    s.emplace_back("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/test/x.txt");
-    s.emplace_back("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/test2");
+//    std::vector<std::string_view> s;
+//    s.emplace_back("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/test/x.txt");
+//    s.emplace_back("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/test2");
 //    s.emplace_back("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/test/y.txt");
-//    s.emplace_back("aye.txt");
-//    s.emplace_back("test");
-//    s.emplace_back("test1");
-//    s.emplace_back("1.exe");
+//    s.emplace_back("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/test");
+//    s.emplace_back("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/test1");
 
-//    archiver->add_to_archive(s);
-//    archiver->crush("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
+//    s.emplace_back("1.exe");
 //
+//    archiver->add_to_archive(s);
+//    archiver->crush("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test1.ar");
+
 //    std::vector<std::string_view> s1;
 //    s1.emplace_back("test2/1.txt");
 //    s1.emplace_back("test2/2.txt");
-    archiver->add_to_existing_archive(s,
-                                      "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/2.ar");
+//    archiver->add_to_existing_archive(s1,
+//                                      "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test1.ar");
 
-//    std::vector<uint32_t> id;
-//    id.emplace_back(3);
-//    id.emplace_back(10);
-//    id.emplace_back(5);
-//
-//    archiver->remove_from_archive(id,
-//                                  "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
-//
-//    std::vector<ArchivedFile> entries = archiver->extract_files_info(
-//            "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar");
-//
-//    for (auto &&entry : entries) {
-//        std::cout << entry.size << "  " << entry.name << "   " << entry.id << std::endl;
-//
-//    }
-//
+    std::vector<uint32_t> id;
+    id.emplace_back(0);
+    id.emplace_back(1);
+
+    archiver->remove_from_archive(id,
+                                  "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test_jni.ar");
+
+
 //    std::vector<uint32_t> ids;
 //    ids.emplace_back(0);
-//    ids.emplace_back(10);
-//    ids.emplace_back(5);
+//    ids.emplace_back(3);
+//    ids.emplace_back(6);
 //
-//    archiver->extract_files("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar",
-//                            "D:/test/test333",
+//    archiver->extract_files("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test1.ar",
+//                            "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/out_lzw",
 //                            ids);
+
+
+
 
 //
 //    archiver->extract("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test.ar",
@@ -59,27 +54,3 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
-
-/*
-#include <boost/filesystem/path.hpp>
-#include <boost/filesystem/operations.hpp>
-
-namespace fs=boost::filesystem;
-
-int main() {
-    std::vector<int> compressed;
-
-
-    fs::path path("1/3.ar");
-    FILE *in = fopen(path.string().c_str(), "rb");
-
-    auto size = fs::file_size(path);
-    uint8_t *bytes = new uint8_t[size];
-
-    fread(bytes, size, 1, in);
-    fclose(in);
-
-
-
-    return 0;
-}*/
