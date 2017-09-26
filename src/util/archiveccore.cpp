@@ -78,7 +78,7 @@ JNIEXPORT jobject JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractFi
         std::stringstream temp;
         temp << file.id << "|";
         temp << reinterpret_cast<const char *>(file.name) << "|";
-        temp << file.size;
+        temp << file.size << "|";
         temp << file.compressed_size;
 
         jstring file_info = env->NewStringUTF(temp.str().c_str());
