@@ -15,29 +15,29 @@ int main(int argc, char *argv[]) {
 
 //    s.emplace_back("1.exe");
 //
-//    archiver->add_to_archive(s);
+//    archiver->add(s);
 //    archiver->crush("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test1.ar");
 
 //    std::vector<std::string_view> s1;
 //    s1.emplace_back("test2/1.txt");
 //    s1.emplace_back("test2/2.txt");
-//    archiver->add_to_existing_archive(s1,
+//    archiver->addToExisting(s1,
 //                                      "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test1.ar");
 
-    std::vector<uint32_t> id;
-    id.emplace_back(0);
-    id.emplace_back(1);
-
-    archiver->remove_from_archive(id,
-                                  "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test_jni.ar");
-
+//    std::vector<uint32_t> id;
+//    id.emplace_back(0);
+//    id.emplace_back(1);
+//
+//    archiver->remove(id,
+//                                  "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test_jni.ar");
+//
 
 //    std::vector<uint32_t> ids;
 //    ids.emplace_back(0);
 //    ids.emplace_back(3);
 //    ids.emplace_back(6);
 //
-//    archiver->extract_files("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test1.ar",
+//    archiver->extractFiles("C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/1/test1.ar",
 //                            "C:/Users/IgorTheMLGPro/CLionProjects/3-1/archivec-core/cmake-build-debug/out_lzw",
 //                            ids);
 

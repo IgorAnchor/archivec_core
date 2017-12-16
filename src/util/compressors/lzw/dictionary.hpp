@@ -13,23 +13,19 @@ namespace lzw {
 
     class Dictionary final {
     public:
-
         struct Entry {
             int code;
             int value;
         };
 
-        int32_t size;
+        unsigned size;
         Entry entries[MAX_DICT_ENTRIES];
-
     public:
-        Dictionary();
+        explicit Dictionary();
 
-        int32_t find_index(int32_t code, int32_t value) const;
-
-        bool add(int32_t code, int32_t value);
-
-        bool flush(int32_t &code_width_bits);
+        int findIndex(int code, int value) const;
+        bool add(int code, int value);
+        bool flush(int &codeWidthBits);
     };
 
 };

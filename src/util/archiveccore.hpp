@@ -18,10 +18,9 @@ jmethodID java_util_ArrayList_add;
 
 void init(JNIEnv *);
 
-void array_list_to_vector_uint32(JNIEnv *, std::vector<uint32_t> &, jobject);
+void arrayListToVectorUint32(JNIEnv *, std::vector<uint32_t> &, jobject);
 
-void array_list_to_vector_string_view(JNIEnv *, std::vector<std::string_view> &, jobject);
-
+void arrayListToVectorStringView(JNIEnv *, std::vector<std::string_view> &, jobject);
 
 
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_initNative
