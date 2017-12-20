@@ -2,21 +2,21 @@
 
 #include "archiver.hpp"
 #include "util/messagebox.hpp"
+#include "util/util.hpp"
 
 Archiver::Archiver() {
-	files_ = new std::vector<fs::path>();
-	titles_ = new std::vector<std::string>();
+	files = new std::vector<fs::path>();
+	titles = new std::vector<std::wstring>();
 }
 
 Archiver::~Archiver() {
-	delete files_;
-	delete titles_;
+	delete files;
+	delete titles;
 }
 
-void Archiver::crush(std::string_view fileName, bool askReplace) {
-
-	if (titles_->empty()) {
-		Message::messageBox("Nothing to archivate!", "Message");
+void Archiver::crush(std::wstring_view fileName, bool askReplace) {
+	if (titles->empty()) {
+		Message::messageBox(L"Nothing to archivate!", L"Message");
 		return;
 	}
 
@@ -28,10 +28,10 @@ void Archiver::crush(std::string_view fileName, bool askReplace) {
 	if (!checkReplace(outFile, askReplace)) return;
 
 	//open out file
-	FILE *out = fopen(fileName.data(), "wb");
+	FILE *out = _wfopen(fileName.data(), L"wb");
 
-	if (out == nullptr) {
-		Message::messageBox("Couldn't create file\n", "Error", fileName.data());
+	if (!out) {
+		Message::messageBox(L"Couldn't create file\n", L"Error", fileName.data());
 
 		fclose(out);
 		return;
@@ -39,25 +39,26 @@ void Archiver::crush(std::string_view fileName, bool askReplace) {
 
 	//write stamp
 	Stamp stamp;
-	stamp.files_count = static_cast<uint32_t>(files_->size());
+	stamp.filesCount = static_cast<unsigned>(files->size());
 	fwrite(&stamp, sizeof(stamp), 1, out);
 
-	for (uint64_t i = 0; i < titles_->size(); ++i) {
+	for (uint64_t i = 0; i < titles->size(); ++i) {
 		Entry entry{};
-		entry.id = static_cast<uint32_t>(i);
-		entry.size = fs::file_size(files_->at(i));
-		entry.nameLength = static_cast<uint32_t>(titles_->at(i).length());
+		entry.id = static_cast<unsigned>(i);
+		entry.size = fs::file_size(files->at(i));
+		entry.nameLength = static_cast<unsigned>(titles->at(i).length() * 2);
 
 		//write entry to crushed file
 		fwrite(&entry, sizeof(Entry), 1, out);
 
 		//write filename
-		fwrite(titles_->at(i).c_str(), entry.nameLength, 1, out);
+		fwrite(titles->at(i).c_str(), entry.nameLength, 1, out);
+
 
 		//open file
-		FILE *in = fopen(files_->at(i).string().c_str(), "rb");
-		if (in == nullptr) {
-			Message::messageBox("Couldn't access file\n", "Error", titles_->at(i));
+		FILE *in = _wfopen(files->at(i).wstring().c_str(), L"rb");
+		if (!in) {
+			Message::messageBox(L"Couldn't access file\n", L"Error", titles->at(i));
 
 			fclose(in);
 			continue;
@@ -74,43 +75,43 @@ void Archiver::crush(std::string_view fileName, bool askReplace) {
 	fclose(out);
 }
 
-void Archiver::add(std::vector<std::string_view> &files) {
+void Archiver::add(std::vector<std::wstring_view> &files) {
 	for (auto &&file : files) {
-		fs::path path_to_file(file.data());
+		fs::path pathToFile(file.data());
 
-		if (fs::exists(path_to_file)) {
-			if (fs::is_regular_file(path_to_file)) {
-				files_->push_back(path_to_file);
-				titles_->push_back(path_to_file.filename().string());
+		if (fs::exists(pathToFile)) {
+			if (fs::is_regular_file(pathToFile)) {
+				this->files->push_back(pathToFile);
+				titles->push_back(pathToFile.filename().wstring());
 			} else {
-				initDir(file, path_to_file.parent_path().string() + "/");
+				initDir(file, pathToFile.parent_path().wstring() + L"/");
 			}
 		} else {
-			Message::messageBox("File or directory is not exists\n", "Warning", file.data());
+			Message::messageBox(L"File or directory is not exists\n", L"Warning", file.data());
 		}
 
 	}
 }
 
-void Archiver::addToExisting(std::vector<std::string_view> &files, std::string_view archive) {
-	titles_->clear();
-	files_->clear();
+void Archiver::addToExisting(std::vector<std::wstring_view> &files, std::wstring_view archive) {
+	this->titles->clear();
+	this->files->clear();
 
 	add(files);
 
 	//get last entry id
-	uint32_t id = getLastId(archive) + 1;
+	unsigned id = getLastId(archive) + 1;
 
 	//open archive
-	FILE *out = fopen(archive.data(), "rw+b");
-	if (out == nullptr) {
-		if (Message::messageBoxYesNo("file does not exist, create it?\n", "Message", archive.data())) {
+	FILE *out = _wfopen(archive.data(), L"rb+");
+
+	if (!out) {
+		fclose(out);
+		if (Message::messageBoxYesNo(L"File does not exist, create it?\n", L"Message", archive.data())) {
 			crush(archive);
 			return;
-		} else {
-			fclose(out);
-			return;
 		}
+		return;
 	}
 
 	//read stamp
@@ -120,21 +121,21 @@ void Archiver::addToExisting(std::vector<std::string_view> &files, std::string_v
 
 	fseek(out, 0, SEEK_END);
 
-	for (uint64_t i = 0; i < titles_->size(); ++i) {
+	for (uint64_t i = 0; i < titles->size(); ++i) {
 		Entry entry{};
-		entry.id = static_cast<uint32_t>(id + i);
-		entry.size = fs::file_size(files_->at(i));
-		entry.nameLength = static_cast<uint32_t>(titles_->at(i).length());
+		entry.id = static_cast<unsigned>(id + i);
+		entry.size = fs::file_size(this->files->at(i));
+		entry.nameLength = static_cast<unsigned>(titles->at(i).length() * 2);
 
 		//write entry
 		fwrite(&entry, sizeof(Entry), 1, out);
-		fwrite(titles_->at(i).data(), titles_->at(i).length(), 1, out);
+		fwrite(titles->at(i).data(), entry.nameLength, 1, out);
 
 		//open file
-		FILE *in = fopen(files_->at(i).string().c_str(), "rb");
+		FILE *in = _wfopen(this->files->at(i).wstring().c_str(), L"rb");
 
 		if (in == nullptr) {
-			Message::messageBox("Couldn't access file\n", "Error", titles_->at(i));
+			Message::messageBox(L"Couldn't access file\n", L"Error", titles->at(i));
 			files.pop_back();
 			continue;
 		}
@@ -144,21 +145,21 @@ void Archiver::addToExisting(std::vector<std::string_view> &files, std::string_v
 
 		fseek(out, static_cast<long>(-(entry.compressedSize + entry.nameLength + sizeof(Entry))), SEEK_CUR);
 		fwrite(&entry, sizeof(Entry), 1, out);
-		fseek(out, static_cast<long>(entry.compressedSize + entry.nameLength + sizeof(Entry)), SEEK_CUR);
+		fseek(out, static_cast<long>(entry.compressedSize + entry.nameLength), SEEK_CUR);
 	}
 
 	//write new files count
-	stamp.files_count += titles_->size();
+	stamp.filesCount += titles->size();
 	fseek(out, 0, SEEK_SET);
 	fwrite(&stamp, sizeof(Stamp), 1, out);
 
 	fclose(out);
 }
 
-void Archiver::extract(std::string_view archive, std::string_view dest, bool askReplace) {
-	FILE *in = fopen(archive.data(), "rb");
+void Archiver::extract(std::wstring_view archive, std::wstring_view dest, bool askReplace) {
+	FILE *in = _wfopen(archive.data(), L"rb");
 	if (in == nullptr) {
-		Message::messageBox("Couldn't access file\n", "Error", archive.data());
+		Message::messageBox(L"Couldn't access file\n", L"Error", archive.data());
 		exit(EXIT_FAILURE);
 	}
 
@@ -167,7 +168,7 @@ void Archiver::extract(std::string_view archive, std::string_view dest, bool ask
 	fread(&stamp, sizeof(Stamp), 1, in);
 
 	if (!checkStamp(stamp)) {
-		Message::messageBox("Unknown file format!", "Error");
+		Message::messageBox(L"Unknown file format!", L"Error");
 		exit(EXIT_FAILURE);
 	}
 
@@ -175,27 +176,26 @@ void Archiver::extract(std::string_view archive, std::string_view dest, bool ask
 	fs::path outPath(dest.data());
 	mkdir(outPath);
 
-	for (auto i = 0; i < stamp.files_count; i++) {
+	for (auto i = 0; i < stamp.filesCount; i++) {
 		Entry entry{};
 		memset(&entry, 0, sizeof(Entry));
-
 		fread(&entry, sizeof(Entry), 1, in);
 
 		//file archive
-		auto *title = new uint8_t[entry.nameLength + 1];
+		auto *title = new wchar_t[(entry.nameLength / 2) + 1];
 		fread(title, entry.nameLength, 1, in);
-		title[entry.nameLength] = '\0';
+		title[entry.nameLength / 2] = '\0';
 
 		//create file
 		fs::path pathToFile(dest.data());
-		pathToFile.append(reinterpret_cast<const char *>(title));
+		pathToFile.append(title);
 		mkdir(pathToFile);
 
 		if (checkReplace(pathToFile, askReplace)) {
 			//split file
-			FILE *out = fopen(pathToFile.string().c_str(), "wb");
+			FILE *out = _wfopen(pathToFile.wstring().c_str(), L"wb");
 			if (out == nullptr) {
-				Message::messageBox("Couldn't write extracted file!", "Error");
+				Message::messageBox(L"Couldn't write extracted file!", L"Error");
 
 				fclose(out);
 				fseek(in, static_cast<long>(entry.compressedSize), SEEK_CUR);
@@ -213,10 +213,11 @@ void Archiver::extract(std::string_view archive, std::string_view dest, bool ask
 	fclose(in);
 }
 
-bool Archiver::extractFiles(std::string_view archive, std::string_view dest, std::vector<uint32_t> &ids, bool askReplace) {
-	FILE *in = fopen(archive.data(), "rb");
+bool Archiver::extractFiles(std::wstring_view archive, std::wstring_view dest, std::vector<unsigned> &ids, bool askReplace,
+                            bool fullPath) {
+	FILE *in = _wfopen(archive.data(), L"rb");
 	if (in == nullptr) {
-		Message::messageBox("Couldn't access file\n", "Error", archive.data());
+		Message::messageBox(L"Couldn't access file\n", L"Error", archive.data());
 		exit(EXIT_FAILURE);
 	}
 
@@ -225,19 +226,19 @@ bool Archiver::extractFiles(std::string_view archive, std::string_view dest, std
 	fread(&stamp, sizeof(Stamp), 1, in);
 
 	if (!checkStamp(stamp)) {
-		Message::messageBox("Unknown file format!", "Error");
+		Message::messageBox(L"Unknown file format!", L"Error");
 		exit(EXIT_FAILURE);
 	}
 
 	bool found = false;
-	uint32_t foundFiles = 0;
+	unsigned foundFiles = 0;
 
-	for (auto i = 0; i < stamp.files_count; i++) {
+	for (auto i = 0; i < stamp.filesCount; i++) {
 		Entry entry{};
 		memset(&entry, 0, sizeof(Entry));
 		fread(&entry, sizeof(Entry), 1, in);
 
-		for (uint32_t fileId : ids) {
+		for (unsigned fileId : ids) {
 			if (entry.id == fileId) {
 				found = true;
 				foundFiles++;
@@ -252,19 +253,23 @@ bool Archiver::extractFiles(std::string_view archive, std::string_view dest, std
 		found = false;
 
 		//file archive
-		auto *title = new uint8_t[entry.nameLength + 1];
+		auto *title = new wchar_t[(entry.nameLength / 2) + 1];
 		fread(title, entry.nameLength, 1, in);
-		title[entry.nameLength] = '\0';
+		title[entry.nameLength / 2] = '\0';
+
+		auto name = util::split(title, '\\');
+		std::wcout << name.back() << std::endl;
 
 		//create dir
-		fs::path out_path(dest.data());
-		out_path.append(reinterpret_cast<const char *>(title));
-		mkdir(out_path);
+		fs::path outPath(dest.data());
+		//is full path
+		outPath.append(fullPath ? title : name.back());
+		mkdir(outPath);
 
-		if (checkReplace(out_path, askReplace)) {
-			FILE *out = fopen(out_path.string().c_str(), "wb");
-			if (out == nullptr) {
-				Message::messageBox("Couldn't write extracted file!\n", "Error", out_path.filename().string());
+		if (checkReplace(outPath, askReplace)) {
+			FILE *out = _wfopen(outPath.wstring().c_str(), L"wb");
+			if (!out) {
+				Message::messageBox(L"Couldn't write extracted file!\n", L"Error", outPath.filename().wstring());
 
 				fseek(in, static_cast<long>(entry.compressedSize), SEEK_CUR);
 				fclose(out);
@@ -285,10 +290,10 @@ bool Archiver::extractFiles(std::string_view archive, std::string_view dest, std
 	return foundFiles != 0;
 }
 
-void Archiver::remove(std::vector<uint32_t> &ids, std::string_view archive) {
-	FILE *in = fopen(archive.data(), "rb");
+void Archiver::remove(std::vector<unsigned> &ids, std::wstring_view archive) {
+	FILE *in = _wfopen(archive.data(), L"rb");
 	if (in == nullptr) {
-		Message::messageBox("Couldn't access file\n", "Error", archive.data());
+		Message::messageBox(L"Couldn't access file\n", L"Error", archive.data());
 		exit(EXIT_FAILURE);
 	}
 
@@ -297,7 +302,7 @@ void Archiver::remove(std::vector<uint32_t> &ids, std::string_view archive) {
 	fread(&stamp, sizeof(Stamp), 1, in);
 
 	if (!checkStamp(stamp)) {
-		Message::messageBox("Unknown file format!", "Error");
+		Message::messageBox(L"Unknown file format!", L"Error");
 
 		fclose(in);
 		return;
@@ -314,7 +319,7 @@ void Archiver::remove(std::vector<uint32_t> &ids, std::string_view archive) {
 	//open to write
 	FILE *out = fopen(tempArchive.string().c_str(), "wb");
 	if (out == nullptr) {
-		Message::messageBox("Couldn't create temp file\n", "Error", tempArchive.filename().string());
+		Message::messageBox(L"Couldn't create temp file\n", L"Error", tempArchive.filename().wstring());
 
 		fclose(out);
 		return;
@@ -324,14 +329,14 @@ void Archiver::remove(std::vector<uint32_t> &ids, std::string_view archive) {
 	fseek(out, sizeof(Stamp), SEEK_SET);
 
 	bool found = false;
-	uint32_t removedCount = 0;
+	unsigned removedCount = 0;
 
-	for (uint32_t i = 0; i < stamp.files_count; ++i) {
+	for (unsigned i = 0; i < stamp.filesCount; ++i) {
 		Entry entry{};
 		memset(&entry, 0, sizeof(Entry));
 		fread(&entry, sizeof(Entry), 1, in);
 
-		for (uint32_t file_id : ids) {
+		for (unsigned file_id : ids) {
 			if (entry.id == file_id) {
 				found = true;
 				removedCount++;
@@ -346,7 +351,7 @@ void Archiver::remove(std::vector<uint32_t> &ids, std::string_view archive) {
 		}
 
 		//get file name and content
-		auto *nameAndContent = new uint8_t[entry.nameLength + entry.compressedSize];
+		auto *nameAndContent = new wchar_t[(entry.nameLength / 2) + entry.compressedSize];
 		fread(nameAndContent, entry.nameLength + entry.compressedSize, 1, in);
 
 		//write name and content to new archive
@@ -357,7 +362,7 @@ void Archiver::remove(std::vector<uint32_t> &ids, std::string_view archive) {
 	}
 
 	fseek(out, 0, SEEK_SET);
-	stamp.files_count -= removedCount;
+	stamp.filesCount -= removedCount;
 	fwrite(&stamp, sizeof(Stamp), 1, out);
 
 	fclose(in);
@@ -368,13 +373,13 @@ void Archiver::remove(std::vector<uint32_t> &ids, std::string_view archive) {
 	fs::rename(tempArchive, archive.data());
 }
 
-std::vector<ArchivedFile> Archiver::extractInfo(std::string_view archive) {
+std::vector<ArchivedFile> Archiver::extractInfo(std::wstring_view archive) {
 	std::vector<ArchivedFile> entries;
 
-	FILE *in = fopen(archive.data(), "rb");
+	FILE *in = _wfopen(archive.data(), L"rb");
 	if (in == nullptr) {
-		Message::messageBox("Couldn't access file\n", "Error", archive.data());
-		exit(EXIT_FAILURE);
+		Message::messageBox(L"Couldn't access file\n", L"Error", archive.data());
+		throw "access denied";
 	}
 
 	Stamp stamp;
@@ -382,26 +387,26 @@ std::vector<ArchivedFile> Archiver::extractInfo(std::string_view archive) {
 	fread(&stamp, sizeof(Stamp), 1, in);
 
 	if (!checkStamp(stamp)) {
-		Message::messageBox("Unknown file format!", "Error");
-		exit(EXIT_FAILURE);
+		Message::messageBox(L"Unknown file format!", L"Error");
+		throw "bad file format";
 	}
 
-	for (uint32_t i = 0; i < stamp.files_count; i++) {
+	for (unsigned i = 0; i < stamp.filesCount; i++) {
 		Entry entry{};
 		memset(&entry, 0, sizeof(Entry));
 		fread(&entry, sizeof(Entry), 1, in);
 
 		//get file name
-		auto *name = new uint8_t[entry.nameLength + 1];
-		fread(name, entry.nameLength, 1, in);
-		name[entry.nameLength] = '\0';
+		auto *title = new wchar_t[(entry.nameLength / 2) + 1];
+		fread(title, entry.nameLength, 1, in);
+		title[entry.nameLength / 2] = '\0';
 
 		//create archived entry
 		ArchivedFile file{};
 		file.id = entry.id;
 		file.size = entry.size;
 		file.compressedSize = entry.compressedSize;
-		file.name = name;
+		file.name = title;
 
 		entries.push_back(file);
 
@@ -412,27 +417,27 @@ std::vector<ArchivedFile> Archiver::extractInfo(std::string_view archive) {
 	return entries;
 }
 
-uint32_t Archiver::getLastId(std::string_view path) {
+unsigned Archiver::getLastId(std::wstring_view path) {
 	auto files = extractInfo(path);
 	return files[files.size() - 1].id;
 }
 
-void Archiver::setBufferSize(uint32_t new_size) {
-	maxBufferSize = new_size;
+void Archiver::setBufferSize(unsigned newSize) {
+	maxBufferSize = newSize;
 }
 
 void Archiver::reset() {
-	titles_->clear();
-	files_->clear();
+	titles->clear();
+	files->clear();
 }
 
 //private
 
-void Archiver::initDir(std::string_view dirName, std::string_view rootDirName) {
+void Archiver::initDir(std::wstring_view dirName, std::wstring_view rootDirName) {
 	fs::path dir(dirName.data());
 
 	if (!fs::exists(dir) || !fs::is_directory(dir)) {
-		Message::messageBox("Is not a directory\n", "Error", dirName.data());
+		Message::messageBox(L"Is not a directory\n", L"Error", dirName.data());
 		return;
 	}
 
@@ -441,17 +446,17 @@ void Archiver::initDir(std::string_view dirName, std::string_view rootDirName) {
 
 	while (iter != end) {
 		if (!fs::is_regular_file(iter->path())) {
-			initDir(iter->path().string(), rootDirName);
+			initDir(iter->path().wstring(), rootDirName);
 			++iter;
 			continue;
 		}
 
-		files_->push_back(iter->path());
+		files->push_back(iter->path());
 
-		auto full_path = iter->path().string();
-		auto path_from_root = full_path.substr(rootDirName.length(), full_path.length());
+		auto fullPath = iter->path().wstring();
+		auto pathFromRoot = fullPath.substr(rootDirName.length(), fullPath.length());
 
-		titles_->push_back(path_from_root);
+		titles->push_back(pathFromRoot);
 		++iter;
 	}
 }
@@ -463,7 +468,7 @@ void Archiver::mkdir(fs::path &path) {
 		if (fs::exists(path.branch_path())) return;
 
 		if (!fs::create_directories(path.branch_path())) {
-			Message::messageBox("Couldn't create directory\n", "Error", path.branch_path().string());
+			Message::messageBox(L"Couldn't create directory\n", L"Error", path.branch_path().wstring());
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -476,7 +481,7 @@ bool Archiver::checkStamp(const Stamp &stamp) {
 bool Archiver::checkReplace(fs::path &path, bool askReplace) {
 	if (fs::exists(path) && fs::is_regular_file(path)) {
 		if (askReplace) {
-			if (Message::messageBoxYesNo("File is already exists! Replace it?\n", "Message", path.filename().string())) {
+			if (Message::messageBoxYesNo(L"File is already exists! Replace it?\n", L"Message", path.filename().wstring())) {
 				fs::remove_all(path);
 				return true;
 			}
@@ -490,26 +495,26 @@ bool Archiver::checkReplace(fs::path &path, bool askReplace) {
 }
 
 void Archiver::rewriteFileExpand(FILE *in, FILE *out, const uint64_t &compressedSize, const uint64_t &fileSize) {
-	uint32_t compressedSizeBytes;
-	uint32_t compressedSizeBits;
+	unsigned compressedSizeBytes;
+	unsigned compressedSizeBits;
 	uint64_t bytesRead = 0;
 
 	std::vector<std::uint8_t> *uncompressedBuffer = nullptr;
 
 	while (bytesRead != compressedSize) {
 		//read size
-		fread(&compressedSizeBytes, sizeof(uint32_t), 1, in);
-		fread(&compressedSizeBits, sizeof(uint32_t), 1, in);
+		fread(&compressedSizeBytes, sizeof(unsigned), 1, in);
+		fread(&compressedSizeBits, sizeof(unsigned), 1, in);
 
 		//create cluster
 		auto *buffer = new uint8_t[compressedSizeBytes];
 		fread(buffer, compressedSizeBytes, 1, in);
 
-		bytesRead += compressedSizeBytes + sizeof(uint32_t) * 2;
+		bytesRead += compressedSizeBytes + sizeof(unsigned) * 2;
 
 		//uncompress and write
 		uncompressedBuffer = new std::vector<uint8_t>(fileSize, 0);
-		const uint32_t uncompressedSize = lzw::expand(buffer, compressedSizeBytes, compressedSizeBits,
+		const unsigned uncompressedSize = lzw::expand(buffer, compressedSizeBytes, compressedSizeBits,
 		                                              uncompressedBuffer->data());
 		fwrite(uncompressedBuffer->data(), uncompressedSize, 1, out);
 
@@ -519,8 +524,8 @@ void Archiver::rewriteFileExpand(FILE *in, FILE *out, const uint64_t &compressed
 }
 
 void Archiver::rewriteFileCompress(FILE *in, FILE *out, const uint64_t &fileSize, uint64_t &compressedSize) {
-	uint32_t compressedSizeBytes;
-	uint32_t compressedSizeBits;
+	unsigned compressedSizeBytes;
+	unsigned compressedSizeBits;
 	uint8_t *compressedBuffer = nullptr;
 
 	uint8_t *buffer;
@@ -529,7 +534,7 @@ void Archiver::rewriteFileCompress(FILE *in, FILE *out, const uint64_t &fileSize
 
 	if (fileSize > maxBufferSize) {
 		//split file
-		auto clusters = static_cast<uint32_t>(fileSize / maxBufferSize);
+		auto clusters = static_cast<unsigned>(fileSize / maxBufferSize);
 		restSize = fileSize % maxBufferSize;
 
 		//create cluster
@@ -540,11 +545,11 @@ void Archiver::rewriteFileCompress(FILE *in, FILE *out, const uint64_t &fileSize
 			lzw::compress(buffer, maxBufferSize, &compressedBuffer, &compressedSizeBytes, &compressedSizeBits);
 
 			//write compressed buffer
-			fwrite(&compressedSizeBytes, sizeof(uint32_t), 1, out);
-			fwrite(&compressedSizeBits, sizeof(uint32_t), 1, out);
+			fwrite(&compressedSizeBytes, sizeof(unsigned), 1, out);
+			fwrite(&compressedSizeBits, sizeof(unsigned), 1, out);
 			fwrite(compressedBuffer, compressedSizeBytes, 1, out);
 
-			compressedSize += compressedSizeBytes + sizeof(uint32_t) * 2;
+			compressedSize += compressedSizeBytes + sizeof(unsigned) * 2;
 		}
 		delete[] buffer;
 	}
@@ -552,14 +557,14 @@ void Archiver::rewriteFileCompress(FILE *in, FILE *out, const uint64_t &fileSize
 	buffer = new uint8_t[restSize];
 	//read and compress
 	fread(buffer, restSize, 1, in);
-	lzw::compress(buffer, static_cast<uint32_t>(restSize), &compressedBuffer, &compressedSizeBytes, &compressedSizeBits);
+	lzw::compress(buffer, static_cast<unsigned>(restSize), &compressedBuffer, &compressedSizeBytes, &compressedSizeBits);
 
 	//write compressed
-	fwrite(&compressedSizeBytes, sizeof(uint32_t), 1, out);
-	fwrite(&compressedSizeBits, sizeof(uint32_t), 1, out);
+	fwrite(&compressedSizeBytes, sizeof(unsigned), 1, out);
+	fwrite(&compressedSizeBits, sizeof(unsigned), 1, out);
 	fwrite(compressedBuffer, compressedSizeBytes, 1, out);
 
-	compressedSize += compressedSizeBytes + sizeof(uint32_t) * 2;
+	compressedSize += compressedSizeBytes + sizeof(unsigned) * 2;
 
 	delete[] buffer;
 }

@@ -20,7 +20,7 @@ namespace lzw {
 		explicit BitStreamReader(const uint8_t *bitStream, int byteCount, int bitCount);
 
 		bool isEndOfStream() const;
-		bool readNextBot(int &bitOut);
+		bool readNextBit(int &bitOut);
 		uint64_t readBitsU64(int bitCount);
 		void reset();
 	};

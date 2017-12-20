@@ -13,47 +13,47 @@ struct Stamp {
 	uint8_t x = 0x52;
 	uint8_t y = 0x84;
 	uint8_t z = 0x91;
-	uint32_t files_count;
+	unsigned filesCount = 0;
 };
 
 struct Entry {
-	uint32_t id;
+	unsigned id;
 	uint64_t size;
 	uint64_t compressedSize;
-	uint32_t nameLength;
+	unsigned nameLength;
 };
 
 struct ArchivedFile {
-	uint32_t id;
+	unsigned id;
 	uint64_t size;
 	uint64_t compressedSize;
-	uint8_t *name;
+	wchar_t *name;
 };
 
 class Archiver {
 private:
-	std::vector<fs::path> *files_;
-	std::vector<std::string> *titles_;
+	std::vector<fs::path> *files;
+	std::vector<std::wstring> *titles;
 
-	uint32_t maxBufferSize = 2'000'000;
+	unsigned maxBufferSize = 2'000'000;
 
 public:
 	explicit Archiver();
 	~Archiver();
 
-	void crush(std::string_view fileName, bool askReplace = true);
-	void add(std::vector<std::string_view> &files);
-	void addToExisting(std::vector<std::string_view> &files, std::string_view archive);
-	void extract(std::string_view archive, std::string_view dest, bool askReplace = true);
-	bool extractFiles(std::string_view archive, std::string_view dest, std::vector<uint32_t> &ids, bool askReplace = true);
-	void remove(std::vector<uint32_t> &ids, std::string_view archive);
-	std::vector<ArchivedFile> extractInfo(std::string_view archive);
-	uint32_t getLastId(std::string_view path);
-	void setBufferSize(uint32_t new_size);
+	void crush(std::wstring_view fileName, bool askReplace = true);
+	void add(std::vector<std::wstring_view> &files);
+	void addToExisting(std::vector<std::wstring_view> &files, std::wstring_view archive);
+	void extract(std::wstring_view archive, std::wstring_view dest, bool askReplace = true);
+	bool extractFiles(std::wstring_view archive, std::wstring_view dest, std::vector<unsigned> &ids, bool askReplace = true, bool fullPath = true);
+	void remove(std::vector<unsigned> &ids, std::wstring_view archive);
+	std::vector<ArchivedFile> extractInfo(std::wstring_view archive);
+	unsigned getLastId(std::wstring_view path);
+	void setBufferSize(unsigned newSize);
 	void reset();
 
 private:
-	void initDir(std::string_view dirName, std::string_view rootDirName);
+	void initDir(std::wstring_view dirName, std::wstring_view rootDirName);
 	inline void mkdir(fs::path &path);
 	inline bool checkStamp(const Stamp &stamp);
 	inline bool checkReplace(fs::path &path, bool askReplace = true);

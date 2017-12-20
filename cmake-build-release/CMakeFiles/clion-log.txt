@@ -1,0 +1,8 @@
+"C:\Program Files\JetBrains\CLion 2017.2.1\bin\cmake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - MinGW Makefiles" C:\Users\IgorTheMLGPro\Documents\GitHub\archivec-core
+-- Boost version: 1.65.1
+-- Found the following Boost libraries:
+--   system
+--   filesystem
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/cmake-build-release
