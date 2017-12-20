@@ -8,7 +8,7 @@ lzw::BitStreamReader::BitStreamReader(const uint8_t *bitStream, const int byteCo
 	reset();
 }
 
-bool lzw::BitStreamReader::readNextBit(int &bitOut) {
+bool lzw::BitStreamReader::readNextBot(int &bitOut) {
 	if (numBitsRead >= sizeBits) {
 		return false;
 	}
@@ -30,7 +30,7 @@ uint64_t lzw::BitStreamReader::readBitsU64(int bitCount) {
 	uint64_t num = 0;
 	for (int b = 0; b < bitCount; ++b) {
 		int bit;
-		if (!readNextBit(bit)) {
+		if (!readNextBot(bit)) {
 			fprintf(stderr, "Failed to read bits from stream! Unexpected end.\n");
 			break;
 		}
