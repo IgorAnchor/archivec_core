@@ -9,12 +9,6 @@ lzw::BitStreamWriter::BitStreamWriter() {
     allocate(8192);
 }
 
-lzw::BitStreamWriter::BitStreamWriter(const int sizeBits, const int growthGranularity) {
-    internalInit();
-    setGranularity(growthGranularity);
-    allocate(sizeBits);
-}
-
 lzw::BitStreamWriter::~BitStreamWriter() {
     delete[]stream;
 }
@@ -22,7 +16,6 @@ lzw::BitStreamWriter::~BitStreamWriter() {
 void lzw::BitStreamWriter::internalInit() {
     stream = nullptr;
     bytesAllocated = 0;
-    granularity = 2;
     currBytePos = 0;
     nextBitPos = 0;
     numBitsWritten = 0;
@@ -57,7 +50,7 @@ void lzw::BitStreamWriter::appendBit(int bit) {
     if (++nextBitPos == 8) {
         nextBitPos = 0;
         if (++currBytePos == bytesAllocated) {
-            allocate(bytesAllocated * granularity * 8);
+            allocate(bytesAllocated * 2 * 8);
         }
     }
 }
@@ -77,10 +70,6 @@ uint8_t *lzw::BitStreamWriter::release() {
     return oldPtr;
 }
 
-void lzw::BitStreamWriter::setGranularity(int growthGranularity) {
-    granularity = (growthGranularity >= 2) ? growthGranularity : 2;
-}
-
 unsigned lzw::BitStreamWriter::getByteCount() const {
     auto usedBytes = static_cast<unsigned int>(numBitsWritten / 8);
     int leftovers = numBitsWritten % 8;
@@ -95,10 +84,6 @@ unsigned lzw::BitStreamWriter::getByteCount() const {
 
 unsigned lzw::BitStreamWriter::getBitCount() const {
     return static_cast<unsigned int>(numBitsWritten);
-}
-
-const uint8_t *lzw::BitStreamWriter::getBitStream() const {
-    return stream;
 }
 
 std::uint8_t *lzw::BitStreamWriter::allocBytes(int bytesWanted, uint8_t *oldPtr, int oldSize) {

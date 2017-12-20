@@ -17,44 +17,43 @@ jmethodID java_util_ArrayList_get;
 jmethodID java_util_ArrayList_add;
 
 void init(JNIEnv *);
-
-void arrayListToVectorUint32(JNIEnv *, std::vector<uint32_t> &, jobject);
-
-void arrayListToVectorStringView(JNIEnv *, std::vector<std::string_view> &, jobject);
+void arrayListToVectorUint32(JNIEnv *, std::vector<unsigned> &, jobject);
+void arrayListToVectorStringView(JNIEnv *, std::vector<std::wstring_view> &, jobject);
+std::wstring jtow(JNIEnv *, jstring);
 
 
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_initNative
-        (JNIEnv *, jclass);
+		(JNIEnv *, jclass);
 
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_crushNative
-        (JNIEnv *, jclass, jstring, jboolean);
+		(JNIEnv *, jclass, jstring, jboolean);
 
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_addToArchiveNative
-        (JNIEnv *, jclass, jobject);
+		(JNIEnv *, jclass, jobject);
 
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_addToExistingAtchiveNative
-        (JNIEnv *, jclass, jobject, jstring);
+		(JNIEnv *, jclass, jobject, jstring);
 
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractNative
-        (JNIEnv *, jclass, jstring, jstring, jboolean);
+		(JNIEnv *, jclass, jstring, jstring, jboolean);
 
 JNIEXPORT jboolean JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractFilesNative
-        (JNIEnv *, jclass, jstring, jstring, jobject, jboolean);
+		(JNIEnv *, jclass, jstring, jstring, jobject, jboolean, jboolean);
 
 JNIEXPORT jobject JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractFilesInfoNative
-        (JNIEnv *, jclass, jstring);
+		(JNIEnv *, jclass, jstring);
 
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_removeFromArchiveNative
-        (JNIEnv *, jclass, jobject, jstring);
+		(JNIEnv *, jclass, jobject, jstring);
 
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_setBufferSizeNative
-        (JNIEnv *, jclass, jint);
+		(JNIEnv *, jclass, jint);
 
 JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_resetNative
-        (JNIEnv *, jclass);
+		(JNIEnv *, jclass);
 
 JNIEXPORT jint JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_getLastIdNative
-        (JNIEnv *, jclass, jstring);
+		(JNIEnv *, jclass, jstring);
 
 #ifdef __cplusplus
 }
