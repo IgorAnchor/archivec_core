@@ -4,6 +4,11 @@ project(archivec_core)
 set(CMAKE_CXX_STANDARD 17)
 set(SMAKE_CXX_RELEASE_FLAGS "-Ofast")
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static-libgcc")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
+set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "${CMAKE_SHARED_LIBRARY_LINK_C_FLAGS} -static-libgcc -s")
+set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS} -static-libgcc -static-libstdc++ -s")
+
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
@@ -13,6 +18,7 @@ find_package(JNI REQUIRED)
 include_directories(${JNI_INCLUDE_DIRS} ${Boost_INCLUDE_DIR})
 
 set(SOURCE_FILES
+        src/util/util.hpp
         src/util/native.hpp
         src/util/messagebox.hpp
         src/archiver.cpp
@@ -30,5 +36,5 @@ set(SOURCE_FILES
 add_library(archivec_core SHARED ${SOURCE_FILES})
 target_link_libraries(archivec_core ${Boost_LIBRARIES})
 
-add_executable(archivec main.cpp ${SOURCE_FILES} src/util/util.hpp)
+add_executable(archivec main.cpp ${SOURCE_FILES})
 target_link_libraries(archivec archivec_core)
