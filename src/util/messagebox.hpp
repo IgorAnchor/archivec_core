@@ -6,10 +6,12 @@
 #include "native.hpp"
 
 namespace Message {
-	static void messageBox(std::string message, std::string title, std::string additionalMessage = "") {
+	static void messageBox(const std::wstring &message, const std::wstring &title,const  std::wstring &additionalMessage = L"") {
 #ifdef __WIN32
-		MessageBox(nullptr, message.append(additionalMessage).c_str(), title.c_str(), MB_OK);
-		std::cout << message.c_str() << std::endl;
+		std::wstring temp = message;
+		temp.append(additionalMessage);
+		MessageBoxW(nullptr, temp.c_str(), title.c_str(), MB_OK);
+		std::wcout << temp.c_str() << std::endl;
 #elif __linux__ || __APPLE__
 		const std::string command = "zenity --text \"" + msg.c_str() + "\"";
 		system(command.c_str());
@@ -19,9 +21,11 @@ namespace Message {
 #endif
 	}
 
-	static bool messageBoxYesNo(std::string message, std::string title, std::string additionalMessage = "") {
+	static bool messageBoxYesNo(const std::wstring &message, const std::wstring &title,const std::wstring &additionalMessage = L"") {
 #ifdef __WIN32
-		int result = MessageBox(nullptr, message.append(additionalMessage).c_str(), title.c_str(), MB_ICONQUESTION | MB_YESNO);
+		std::wstring temp = message;
+		temp.append(additionalMessage);
+		int result = MessageBoxW(nullptr, temp.c_str(), title.c_str(), MB_ICONQUESTION | MB_YESNO);
 		return result == IDYES;
 #endif
 	}

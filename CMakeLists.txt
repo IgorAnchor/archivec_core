@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 project(archivec_core)
 
 set(CMAKE_CXX_STANDARD 17)
+set(SMAKE_CXX_RELEASE_FLAGS "-Ofast")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static-libgcc")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
@@ -11,10 +12,9 @@ set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS} 
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
+
 find_package(Boost COMPONENTS system filesystem REQUIRED)
-
 find_package(JNI REQUIRED)
-
 include_directories(${JNI_INCLUDE_DIRS} ${Boost_INCLUDE_DIR})
 
 set(SOURCE_FILES
