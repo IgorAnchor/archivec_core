@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/archiver.cpp" line="353" />
-  </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
       <config projectName="archivec_core" targetName="archivec" />
@@ -11,29 +8,30 @@
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
     <configurations>
-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
-      <configuration PROFILE_NAME="Release" CONFIG_NAME="Release" />
+      <configuration CONFIG_NAME="Debug" />
     </configurations>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="53e9e5a5-3d6f-450a-9f98-48f26d39fcdd" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/util/util.hpp" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
-      <change beforePath="$PROJECT_DIR$/src/archiver.cpp" afterPath="$PROJECT_DIR$/src/archiver.cpp" />
-      <change beforePath="$PROJECT_DIR$/src/archiver.hpp" afterPath="$PROJECT_DIR$/src/archiver.hpp" />
-      <change beforePath="$PROJECT_DIR$/src/util/archiveccore.cpp" afterPath="$PROJECT_DIR$/src/util/archiveccore.cpp" />
-      <change beforePath="$PROJECT_DIR$/src/util/archiveccore.hpp" afterPath="$PROJECT_DIR$/src/util/archiveccore.hpp" />
-      <change beforePath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.cpp" afterPath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.cpp" />
-      <change beforePath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.hpp" afterPath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.hpp" />
-      <change beforePath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.cpp" afterPath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.cpp" />
-      <change beforePath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.hpp" afterPath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.hpp" />
-      <change beforePath="$PROJECT_DIR$/src/util/compressors/lzw/lzw.hpp" afterPath="$PROJECT_DIR$/src/util/compressors/lzw/lzw.hpp" />
-      <change beforePath="$PROJECT_DIR$/src/util/messagebox.hpp" afterPath="$PROJECT_DIR$/src/util/messagebox.hpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/IgorTheMLGPro.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archiver.cpp" afterPath="$PROJECT_DIR$/src/archiver.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archiver.hpp" afterPath="$PROJECT_DIR$/src/archiver.hpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/archiveccore.cpp" afterPath="$PROJECT_DIR$/src/util/archiveccore.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/archiveccore.hpp" afterPath="$PROJECT_DIR$/src/util/archiveccore.hpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.cpp" afterPath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.hpp" afterPath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.hpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.cpp" afterPath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.hpp" afterPath="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.hpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/compressors/lzw/dictionary.cpp" afterPath="$PROJECT_DIR$/src/util/compressors/lzw/dictionary.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/compressors/lzw/dictionary.hpp" afterPath="$PROJECT_DIR$/src/util/compressors/lzw/dictionary.hpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/compressors/lzw/lzw.hpp" afterPath="$PROJECT_DIR$/src/util/compressors/lzw/lzw.hpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/util/messagebox.hpp" afterPath="$PROJECT_DIR$/src/util/messagebox.hpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
-    <ignored path="$PROJECT_DIR$/cmake-build-release/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,115 +39,22 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="util.hpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/util/util.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="23" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="messagebox.hpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/util/messagebox.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="32" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="archiveccore.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/util/archiveccore.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="546">
-              <caret line="137" column="0" lean-forward="true" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="archiveccore.hpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/util/archiveccore.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="20" column="46" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dictionary.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/dictionary.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="16" column="21" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="49" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bitstreamwriter.hpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="25" column="45" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bitstreamwriter.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="75" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bitstreamreader.hpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="27" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bitstreamreader.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="11" column="29" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="53" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="native.hpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/util/native.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="13" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+      <find>string</find>
+      <find>out_file_name</find>
+      <find>title</find>
+      <find>byte</find>
+      <find>nameLength</find>
+      <find>contents</find>
+      <find>path</find>
+      <find>char *</find>
+      <find>files_</find>
+      <find>check_replace</find>
+      <find>jint</find>
       <find>extract</find>
       <find>addt</find>
       <find>array_list_to_vector_uint32</find>
@@ -169,17 +74,6 @@
       <find>ArchivedFile</find>
       <find>int32_t</find>
       <find>uint</find>
-      <find>uint32_t</find>
-      <find>files</find>
-      <find>string_view</find>
-      <find>L&quot;&quot;</find>
-      <find>fread</find>
-      <find>nameLength</find>
-      <find>create it</find>
-      <find>entry.nameLength</find>
-      <find>fopen</find>
-      <find>Java_ua_chillcrew_archivec_core_ArchivecCore_extractFilesNative</find>
-      <find>extractFiles</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -219,21 +113,20 @@
         <option value="$PROJECT_DIR$/src/util/compressors/lzw/lzw.cpp" />
         <option value="$PROJECT_DIR$/src/util/compressors/lzw/lzwbase.hpp" />
         <option value="$PROJECT_DIR$/src/util/compressors/lzw/lzw_1.hpp" />
-        <option value="$PROJECT_DIR$/src/util/compressors/lzw/dictionary.hpp" />
-        <option value="$PROJECT_DIR$/src/util/compressors/lzw/dictionary.cpp" />
-        <option value="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/src/util/compressors/lzw/lzw.hpp" />
-        <option value="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.cpp" />
-        <option value="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.hpp" />
-        <option value="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.hpp" />
-        <option value="$PROJECT_DIR$/src/util/messagebox.hpp" />
-        <option value="$PROJECT_DIR$/src/util/util.hpp" />
         <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/src/archiver.hpp" />
         <option value="$PROJECT_DIR$/src/archiver.cpp" />
+        <option value="$PROJECT_DIR$/src/util/messagebox.hpp" />
         <option value="$PROJECT_DIR$/src/util/archiveccore.hpp" />
         <option value="$PROJECT_DIR$/src/util/archiveccore.cpp" />
+        <option value="$PROJECT_DIR$/src/util/compressors/lzw/dictionary.hpp" />
+        <option value="$PROJECT_DIR$/src/util/compressors/lzw/dictionary.cpp" />
+        <option value="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.hpp" />
+        <option value="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.cpp" />
+        <option value="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.hpp" />
+        <option value="$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.cpp" />
+        <option value="$PROJECT_DIR$/src/util/compressors/lzw/lzw.hpp" />
       </list>
     </option>
   </component>
@@ -243,15 +136,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="JsbtTreeLayoutManager">
-    <layout place="tools.popupGrunt">
-      <scroll-view-position x="0" y="0" />
-    </layout>
-  </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
-  <component name="ProjectFrameBounds">
-    <option name="x" value="1012" />
-    <option name="width" value="915" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-7" />
+    <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -329,18 +217,18 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="org.plantuml.idea.lang.settings.PlantUmlSettingsPage" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
     <property name="SearchEverywhereHistoryKey" value="attach to &#9;ACTION&#9;XDebugger.AttachToLocalProcess&#10;attach&#9;ACTION&#9;XDebugger.AttachToLocalProcess&#10;navigate&#9;ACTION&#9;GoToMenu" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\IgorTheMLGPro\CLionProjects\3-1\archivec-core\src\util\compressor\lzw" />
-      <recent name="C:\Users\IgorTheMLGPro\CLionProjects\3-1\archivec-core\src" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\IgorTheMLGPro\CLionProjects\3-1\archivec-core\src\util\compressors\lzw" />
       <recent name="C:\Users\IgorTheMLGPro\CLionProjects\3-1\archivec-core\src\util" />
+      <recent name="C:\Users\IgorTheMLGPro\CLionProjects\3-1\archivec-core\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\IgorTheMLGPro\CLionProjects\3-1\archivec-core\src\util\compressor\lzw" />
       <recent name="C:\Users\IgorTheMLGPro\CLionProjects\3-1\archivec-core\src" />
     </key>
   </component>
@@ -356,14 +244,14 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Build All">
+  <component name="RunManager" selected="Application.archivec_core">
     <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="archivec_core" RUN_TARGET_NAME="archivec" EXPLICIT_BUILD_TARGET_NAME="all">
       <envs />
     </configuration>
     <configuration name="archivec" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="archivec_core" TARGET_NAME="archivec" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="archivec_core" RUN_TARGET_NAME="archivec">
       <envs />
     </configuration>
-    <configuration name="archivec_core" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="archivec_core" TARGET_NAME="archivec_core" CONFIG_NAME="Debug">
+    <configuration name="archivec_core" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="archivec_core" TARGET_NAME="archivec_core" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="archivec_core" RUN_TARGET_NAME="archivec">
       <envs />
     </configuration>
     <list size="3">
@@ -404,10 +292,7 @@
       <workItem from="1507158691194" duration="854000" />
       <workItem from="1507161596670" duration="667000" />
       <workItem from="1513295594885" duration="1344000" />
-      <workItem from="1513460470150" duration="7247000" />
-      <workItem from="1513468415052" duration="2042000" />
-      <workItem from="1513518836737" duration="322000" />
-      <workItem from="1513746809681" duration="43182000" />
+      <workItem from="1513460470150" duration="7126000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <created>1505323360302</created>
@@ -423,54 +308,58 @@
       <option name="project" value="LOCAL" />
       <updated>1505418273143</updated>
     </task>
-    <task id="LOCAL-00003" summary="code refactor">
-      <created>1513467687933</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1513467687934</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="250346000" />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
+    <option name="totallyTimeSpent" value="204679000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1012" y="0" width="915" height="1047" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29527992" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33152175" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2923913" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33260155" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25543478" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35789475" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.325" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1977612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29308453" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33260155" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25543478" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35776806" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -481,19 +370,57 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="gitignore" />
     <MESSAGE value="java native" />
-    <MESSAGE value="code refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="code refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="java native" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="77" />
+      <option name="time" value="60" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../archivec_ui/src/archiveccore.cpp" />
+    <entry file="file://C:/Program Files/Java/jdk1.8.0_112/include/jni.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="871" column="0" lean-forward="false" selection-start-line="871" selection-start-column="0" selection-end-line="871" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/archiveccore1.hpp" />
+    <entry file="file://$PROJECT_DIR$/src/util/archiveccore1.cpp" />
+    <entry file="file://$APPLICATION_HOME_DIR$/bin/cmake/share/cmake-3.8/Modules/FindBoost.cmake">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="1917" column="0" lean-forward="false" selection-start-line="1917" selection-start-column="0" selection-end-line="1917" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/mingw-w64/x86_64-7.1.0-win32-seh-rt_v5-rev1/mingw64/lib/gcc/x86_64-w64-mingw32/7.1.0/include/c++/bits/vector.tcc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="95" column="6" lean-forward="false" selection-start-line="95" selection-start-column="6" selection-end-line="95" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/mingw-w64/x86_64-7.1.0-win32-seh-rt_v5-rev1/mingw64/lib/gcc/x86_64-w64-mingw32/7.1.0/include/c++/bits/stl_algo.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="4347" column="2" lean-forward="true" selection-start-line="4347" selection-start-column="2" selection-end-line="4347" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/mingw-w64/x86_64-7.1.0-win32-seh-rt_v5-rev1/mingw64/x86_64-w64-mingw32/include/assert.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="72" column="8" lean-forward="false" selection-start-line="72" selection-start-column="8" selection-end-line="72" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/compressor/lzw/bitstreamwriter.cpp" />
     <entry file="file://$PROJECT_DIR$/src/util/compressor/lzw/bitstreamreader.cpp" />
     <entry file="file://$PROJECT_DIR$/src/util/compressor/lzw/bitstreamreader.hpp" />
     <entry file="file://$PROJECT_DIR$/src/util/compressor/lzw/bitstreamwriter.hpp" />
@@ -560,70 +487,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="37" lean-forward="false" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/mingw-w64/x86_64-7.1.0-win32-seh-rt_v5-rev1/mingw64/x86_64-w64-mingw32/include/winnt.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4">
-          <caret line="277" column="15" lean-forward="false" selection-start-line="277" selection-start-column="15" selection-end-line="277" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Program Files (x86)/Java/jdk1.8.0_131/include/jni.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="56" column="24" lean-forward="false" selection-start-line="56" selection-start-column="24" selection-end-line="56" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/mingw-w64/x86_64-7.1.0-win32-seh-rt_v5-rev1/mingw64/lib/gcc/x86_64-w64-mingw32/7.1.0/include/c++/bits/basic_string.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="2222" column="6" lean-forward="false" selection-start-line="2222" selection-start-column="6" selection-end-line="2222" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/mingw-w64/x86_64-7.1.0-win32-seh-rt_v5-rev1/mingw64/x86_64-w64-mingw32/include/stdint.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="36" column="18" lean-forward="true" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmake-build-debug/cyrillic/1/out/lzw.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/mingw-w64/x86_64-7.1.0-win32-seh-rt_v5-rev1/mingw64/lib/gcc/x86_64-w64-mingw32/7.1.0/include/c++/bits/char_traits.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="359" column="0" lean-forward="false" selection-start-line="359" selection-start-column="0" selection-end-line="359" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/mingw-w64/x86_64-7.1.0-win32-seh-rt_v5-rev1/mingw64/lib/gcc/x86_64-w64-mingw32/7.1.0/include/c++/bits/stl_iterator.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="779" column="0" lean-forward="false" selection-start-line="779" selection-start-column="0" selection-end-line="779" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/mingw-w64/x86_64-7.1.0-win32-seh-rt_v5-rev1/mingw64/lib/gcc/x86_64-w64-mingw32/7.1.0/include/c++/bits/stl_vector.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
@@ -632,166 +495,167 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/mingw-w64/x86_64-7.1.0-win32-seh-rt_v5-rev1/mingw64/lib/gcc/x86_64-w64-mingw32/7.1.0/include/c++/string_view">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/mingw-w64/x86_64-7.1.0-win32-seh-rt_v5-rev1/mingw64/x86_64-w64-mingw32/include/wchar.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="745" column="27" lean-forward="false" selection-start-line="745" selection-start-column="27" selection-end-line="745" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/mingw-w64/x86_64-7.1.0-win32-seh-rt_v5-rev1/mingw64/lib/gcc/x86_64-w64-mingw32/7.1.0/include/c++/bits/vector.tcc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="95" column="6" lean-forward="false" selection-start-line="95" selection-start-column="6" selection-end-line="95" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="18" column="34" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+        <state relative-caret-position="119">
+          <caret line="7" column="40" lean-forward="false" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
+            <marker date="1513460985155" expanded="true" signature="1027:1077" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/mingw-w64/x86_64-7.1.0-win32-seh-rt_v5-rev1/mingw64/lib/gcc/x86_64-w64-mingw32/7.1.0/include/c++/string_view">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="92" column="6" lean-forward="false" selection-start-line="92" selection-start-column="6" selection-end-line="92" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/mingw-w64/x86_64-7.1.0-win32-seh-rt_v5-rev1/mingw64/x86_64-w64-mingw32/include/stdint.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2063">
+          <caret line="39" column="19" lean-forward="false" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/archiver.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="21" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="63" selection-end-column="35" />
+        <state relative-caret-position="181">
+          <caret line="25" column="19" lean-forward="false" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="19" />
           <folding>
-            <element signature="e#71#88#0" expanded="true" />
+            <element signature="e#71#88#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/native.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding>
+            <element signature="e#134#176#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/messagebox.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="4" lean-forward="true" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
+          <folding>
+            <element signature="e#69#88#0" expanded="true" />
+            <element signature="e#414#577#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/archiver.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="234" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="570" selection-end-column="0" />
+        <state relative-caret-position="357">
+          <caret line="370" column="24" lean-forward="false" selection-start-line="370" selection-start-column="12" selection-end-line="370" selection-end-column="24" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#208#264#0" expanded="false" />
-            <element signature="e#7286#9314#0" expanded="false" />
-            <element signature="e#9316#10396#0" expanded="false" />
-            <element signature="e#10525#10601#0" expanded="false" />
-            <element signature="e#10603#10664#0" expanded="false" />
-            <element signature="e#10677#11364#0" expanded="false" />
-            <element signature="e#11366#11686#0" expanded="false" />
-            <element signature="e#11688#11800#0" expanded="false" />
-            <element signature="e#11802#12194#0" expanded="false" />
+            <element signature="e#184#242#0" expanded="false" />
+            <element signature="e#244#1826#0" expanded="false" />
+            <element signature="e#1828#2312#0" expanded="false" />
+            <element signature="e#2314#3944#0" expanded="false" />
+            <element signature="e#3946#5413#0" expanded="false" />
+            <element signature="e#5415#7154#0" expanded="false" />
+            <element signature="e#7156#9169#0" expanded="false" />
+            <element signature="e#9171#10222#0" expanded="false" />
+            <element signature="e#10224#10348#0" expanded="false" />
+            <element signature="e#10350#10428#0" expanded="false" />
+            <element signature="e#10430#10493#0" expanded="false" />
+            <element signature="e#10506#11196#0" expanded="false" />
+            <element signature="e#11198#11515#0" expanded="false" />
+            <element signature="e#11517#11629#0" expanded="false" />
+            <element signature="e#11631#12020#0" expanded="false" />
+            <element signature="e#12022#13000#0" expanded="false" />
+            <element signature="e#13002#14496#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/lzw.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="119" column="45" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
-          <folding>
-            <element signature="e#308#1652#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/dictionary.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="22" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/dictionary.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="16" column="21" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="49" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="25" column="45" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="75" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="27" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="11" column="29" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="53" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/native.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="13" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/util.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/messagebox.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="32" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/util/archiveccore.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="20" column="46" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+        <state relative-caret-position="17">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/util/archiveccore.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="137" column="0" lean-forward="true" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="439">
+          <caret line="155" column="23" lean-forward="false" selection-start-line="155" selection-start-column="23" selection-end-line="155" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/dictionary.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="17" lean-forward="false" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/dictionary.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="22" column="5" lean-forward="false" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-136">
+          <caret line="11" column="34" lean-forward="true" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/bitstreamreader.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="53" lean-forward="false" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="84" column="8" lean-forward="false" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/lzw.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2023">
+          <caret line="121" column="45" lean-forward="true" selection-start-line="121" selection-start-column="45" selection-end-line="121" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/compressors/lzw/bitstreamwriter.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="30" column="16" lean-forward="false" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>

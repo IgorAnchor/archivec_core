@@ -137,8 +137,6 @@ namespace lzw {
 		return true;
 	}
 
-
-
 };
 
 #endif //ARCHIVEC_CORE_LZW_HPP

@@ -1,1 +1,0 @@
-libarchivec_core.dll.a C:/boost/stage/lib/libboost_system-mgw71-mt-1_65_1.a C:/boost/stage/lib/libboost_filesystem-mgw71-mt-1_65_1.a -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
