@@ -1,4 +1,4 @@
-#include <jni/jni.h>
+#include <jni.h>
 #include "../archiver.hpp"
 /* Header for class ua_chillcrew_archivec_core_ArchivecCore */
 
