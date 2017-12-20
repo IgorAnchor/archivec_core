@@ -21,14 +21,8 @@ iostream
 -
 ctime
 -
-jni.h
--
 src/archiver.hpp
 C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/src/archiver.hpp
-io.h
--
-fcntl.h
--
 
 C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/src/archiver.cpp
 sstream
@@ -37,8 +31,6 @@ archiver.hpp
 C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/src/archiver.hpp
 util/messagebox.hpp
 C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/src/util/messagebox.hpp
-util/util.hpp
-C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/src/util/util.hpp
 
 C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/src/archiver.hpp
 string
@@ -52,8 +44,6 @@ C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/src/util/compressors/lzw/l
 
 C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/src/util/archiveccore.cpp
 sstream
--
-iostream
 -
 archiveccore.hpp
 C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/src/util/archiveccore.hpp
@@ -118,12 +108,6 @@ windows.h
 sys/types.h
 -
 dirent.h
--
-
-C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/src/util/util.hpp
-sstream
--
-vector
 -
 
 C:/boost/include/boost-1_65_1/boost/assert.hpp
