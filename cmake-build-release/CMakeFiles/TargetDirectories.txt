@@ -1,4 +1,0 @@
-C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/cmake-build-release/CMakeFiles/archivec_core.dir
-C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/cmake-build-release/CMakeFiles/archivec.dir
-C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/cmake-build-release/CMakeFiles/edit_cache.dir
-C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/cmake-build-release/CMakeFiles/rebuild_cache.dir
