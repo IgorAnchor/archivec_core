@@ -10,6 +10,7 @@ CMakeFiles/archivec_core.dir/src/archiver.cpp.obj
  C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/src/util/compressors/lzw/lzw.hpp
  C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/src/util/messagebox.hpp
  C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/src/util/native.hpp
+ C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/src/util/util.hpp
  C:/boost/include/boost-1_65_1/boost/assert.hpp
  C:/boost/include/boost-1_65_1/boost/cerrno.hpp
  C:/boost/include/boost-1_65_1/boost/checked_delete.hpp

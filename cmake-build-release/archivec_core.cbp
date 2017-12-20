@@ -190,6 +190,7 @@
 			<Option target="archivec"/>
 		</Unit>
 		<Unit filename="C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/src/util/util.hpp">
+			<Option target="archivec_core"/>
 			<Option target="archivec"/>
 		</Unit>
 		<Unit filename="C:/Users/IgorTheMLGPro/Documents/GitHub/archivec-core/CMakeLists.txt">
