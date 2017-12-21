@@ -257,13 +257,18 @@ bool Archiver::extractFiles(std::wstring_view archive, std::wstring_view dest, s
 		fread(title, entry.nameLength, 1, in);
 		title[entry.nameLength / 2] = '\0';
 
-		auto name = util::split(title, '\\');
-		std::wcout << name.back() << std::endl;
+		const wchar_t *filePath;
 
+		if (fullPath) {
+			filePath = title;
+		} else {
+			auto name = util::split(title, fs::path::preferred_separator);
+			filePath = name.back().c_str();
+		}
 		//create dir
 		fs::path outPath(dest.data());
 		//is full path
-		outPath.append(fullPath ? title : name.back());
+		outPath.append(filePath);
 		mkdir(outPath);
 
 		if (checkReplace(outPath, askReplace)) {

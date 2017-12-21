@@ -41,7 +41,7 @@ JNIEXPORT void JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractNativ
         (JNIEnv *, jclass, jstring, jstring, jboolean);
 
 JNIEXPORT jboolean JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractFilesNative
-        (JNIEnv *, jclass, jstring, jstring, jobject, jboolean);
+        (JNIEnv *, jclass, jstring, jstring, jobject, jboolean, jboolean);
 
 JNIEXPORT jobject JNICALL Java_ua_chillcrew_archivec_core_ArchivecCore_extractFilesInfoNative
         (JNIEnv *, jclass, jstring);
